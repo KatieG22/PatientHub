@@ -27,14 +27,15 @@ public class MyResourceTest {
         // support for JSON in the client (you also have to uncomment
         // dependency on jersey-media-json module in pom.xml and Main.startServer())
         // --
-        // c.configuration().enable(new org.glassfish.jersey.media.json.JsonJaxbFeature());
+        // c.configuration().enable(new
+        // org.glassfish.jersey.media.json.JsonJaxbFeature());
 
         target = c.target(Main.BASE_URI);
     }
 
     @After
     public void tearDown() throws Exception {
-        server.stop();
+        server.shutdownNow();
     }
 
     /**
