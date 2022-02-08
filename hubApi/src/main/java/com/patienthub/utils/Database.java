@@ -39,10 +39,11 @@ public class Database {
 
     public static void closeConnection(Connection connection) {
         // closes connection
+        if (connection == null) {
+            return;
+        }
         try {
-            if (connection != null) {
-                connection.close();
-            }
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
