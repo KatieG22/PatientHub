@@ -25,16 +25,18 @@ public class Database {
         }
     }
 
-    public static Connection getConnection() throws SQLException {
+    public static Connection getConnection() {
         // handles creation of connection
         if (db == null) {
             db = new Database();
         }
+        Connection con = null;
         try {
-            return DriverManager.getConnection(db.url, "username", "password");
+            con = DriverManager.getConnection(db.url, "username", "password");
         } catch (SQLException e) {
-            throw e;
+            e.printStackTrace();
         }
+        return con;
     }
 
     public static void closeConnection(Connection connection) {
@@ -47,6 +49,15 @@ public class Database {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static boolean isConnected(Connection connection) {
+        try {
+            return connection != null && connection.isClosed();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }
