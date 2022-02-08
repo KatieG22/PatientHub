@@ -7,6 +7,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.patienthub.model.Hospital;
+
 /**
  * Root resource (exposed at "myresource" path)
  */
@@ -23,6 +25,9 @@ public class HospitalResource {
      */
     @POST
     public Response createHospital() {
-        return Response.status(200).entity("{}").build();
+        Hospital hospial = new Hospital("dublin city", "+2348169084566", "tumise@gmail.com", "E19ttt", "21 adesola",
+                "nigeria", "lago", true, false, true);
+        String details = String.format("\'{name:%s}\'", hospial.getName());
+        return Response.status(200).entity(hospial).build();
     }
 }

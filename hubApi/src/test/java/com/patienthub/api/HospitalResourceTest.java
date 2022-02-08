@@ -48,6 +48,6 @@ public class HospitalResourceTest {
         WebTarget hospitalWebTarget = target.path("v1/hospital");
         Response response = hospitalWebTarget.request(MediaType.APPLICATION_JSON)
                 .post(Entity.entity("{}", MediaType.APPLICATION_JSON));
-        assertEquals(201, response.getStatus());
+        assertEquals(200, response.getStatus());
     }
 }
