@@ -27,7 +27,6 @@ public class HospitalResource {
     public Response createHospital() {
         Hospital hospial = new Hospital("dublin city", "+2348169084566", "tumise@gmail.com", "E19ttt", "21 adesola",
                 "nigeria", "lago", true, false, true);
-        String details = String.format("\'{name:%s}\'", hospial.getName());
         return Response.status(200).entity(hospial).build();
     }
 }
