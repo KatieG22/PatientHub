@@ -31,10 +31,20 @@
         </dependency>
 
         <!-- uncomment this to get JSON support: -->
+        <!-- turns class to json -->
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-json-binding</artifactId>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <!-- mysql dependecy -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.17</version>
+        </dependency>
+
 
         <dependency>
             <groupId>junit</groupId>
