@@ -6,7 +6,7 @@ public class Hospital {
     private String contactEmail;
     private String eirCode;
     private String addressLine;
-    private String country;
+    private String county;
     private String city;
     private boolean isHq;
     private boolean hasAdmin;
@@ -17,13 +17,13 @@ public class Hospital {
     }
 
     public Hospital(String name, String contactNum, String contactEmail, String eirCode, String addressLine,
-            String country, String city, boolean isHq, boolean hasAdmin, boolean isVerified) {
+            String county, String city, boolean isHq, boolean hasAdmin, boolean isVerified) {
         this.name = name;
         this.contactNum = contactNum;
         this.contactEmail = contactEmail;
         this.eirCode = eirCode;
         this.addressLine = addressLine;
-        this.country = country;
+        this.county = county;
         this.city = city;
         this.isHq = isHq;
         this.hasAdmin = hasAdmin;
@@ -70,12 +70,12 @@ public class Hospital {
         this.addressLine = addressLine;
     }
 
-    public String getCountry() {
-        return country;
+    public String getCounty() {
+        return county;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setCounty(String county) {
+        this.county = county;
     }
 
     public String getCity() {

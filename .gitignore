@@ -107,3 +107,6 @@ local.properties
 
 #enviroment
 .env
+
+#vscode stuff
+.vscode

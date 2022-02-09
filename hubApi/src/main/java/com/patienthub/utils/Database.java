@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import io.github.cdimascio.dotenv.Dotenv;
-
 /**
  * class handles creating a datbase connection
  * takes users db variable from projects env
@@ -15,30 +13,29 @@ public class Database {
 
     private String url;
     private static Database db;
-    private Dotenv dotenv;
     private static String dbUsername;
     private static String dbPassword;
     private static String dbName;
 
-    private Database() {
+    private Database(DbConfig dbConfig) {
         String driver = null;
-        dotenv = Dotenv.load();
-        dbUsername = dotenv.get("DB_USERNAME", "username");
-        dbPassword = dotenv.get("DB_PASSWORD", "password");
-        dbName = dotenv.get("DB_NAME", "patienthub");
+        dbUsername = dbConfig.getConfig("dbUsername");
+        dbPassword = dbConfig.getConfig("dbPassword");
+        dbName = dbConfig.getConfig("dbName");
         try {
             driver = "com.mysql.cj.jdbc.Driver";
             Class.forName(driver);
-            this.url = String.format("jdbc:mysql://localhost:3306/%s", dbName);
+            url = String.format("jdbc:mysql://localhost:3306/%s", dbName);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static Connection getConnection() {
-        // handles creation of connection
+    public static Connection getConnection(DbConfig config) {
+        // handles creation of connection.
+        // ensures just on instance of db is instantiated
         if (db == null) {
-            db = new Database();
+            db = new Database(config);
         }
         Connection con = null;
         try {
@@ -47,18 +44,6 @@ public class Database {
             e.printStackTrace();
         }
         return con;
-    }
-
-    public static void closeConnection(Connection connection) {
-        // closes connection
-        if (connection == null) {
-            return;
-        }
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
 }

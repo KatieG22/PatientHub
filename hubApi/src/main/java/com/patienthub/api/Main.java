@@ -7,7 +7,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import java.io.IOException;
 import java.net.URI;
 
-import com.patienthub.config.ApplicationConfig;
+import com.patienthub.config.AppConfig;
 
 /**
  * Main class.
@@ -26,7 +26,7 @@ public class Main {
     public static HttpServer startServer() {
         // create a resource config that scans for JAX-RS resources and providers
         // in com.patienthub.api package
-        final ResourceConfig rc = new ApplicationConfig();
+        final ResourceConfig rc = new AppConfig();
 
         // create and start a new instance of grizzly http server
         // exposing the Jersey application at BASE_URI

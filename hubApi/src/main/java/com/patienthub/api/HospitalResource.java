@@ -1,5 +1,6 @@
 package com.patienthub.api;
 
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -8,6 +9,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.patienthub.model.Hospital;
+import com.patienthub.service.HospitalDoa;
+import com.patienthub.utils.DbConfig;
 
 /**
  * Root resource (exposed at "myresource" path)
@@ -23,10 +26,20 @@ public class HospitalResource {
      *
      * @return String that will be returned as a text/plain response.
      */
+
+    private final DbConfig dbConfig;
+    private HospitalDoa dao;
+
+    @Inject
+    public HospitalResource(DbConfig dbConfig) {
+        this.dbConfig = dbConfig;
+        dao = new HospitalDoa(dbConfig);
+
+    }
+
     @POST
-    public Response createHospital() {
-        Hospital hospial = new Hospital("dublin city", "+2348169084566", "tumise@gmail.com", "E19ttt", "21 adesola",
-                "nigeria", "lago", true, false, true);
-        return Response.status(200).entity(hospial).build();
+    public Response create(Hospital detalis) {
+        Hospital hospital = dao.create(detalis);
+        return Response.status(200).entity(hospital).build();
     }
 }

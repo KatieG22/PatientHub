@@ -52,6 +52,15 @@
             <version>2.2.0</version>
         </dependency>
 
+        <!-- test provider -->
+        <dependency>
+            <groupId>org.glassfish.jersey.test-framework.providers</groupId>
+            <artifactId>jersey-test-framework-provider-grizzly2</artifactId>
+            <version>2.35</version>
+        </dependency>
+
+        <!-- test provider -->
+
 
         <dependency>
             <groupId>junit</groupId>

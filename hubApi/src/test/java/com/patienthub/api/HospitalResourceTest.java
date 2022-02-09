@@ -7,6 +7,8 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.patienthub.model.Hospital;
+
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.junit.After;
 import org.junit.Before;
@@ -46,8 +48,11 @@ public class HospitalResourceTest {
     @Test
     public void testcreateHospital() {
         WebTarget hospitalWebTarget = target.path("v1/hospital");
+        Hospital h = new Hospital("dublin city", "+2348169084566", "tumise@gmail.com", "E19ttt", "21 adesola",
+                "nigeria", "lago",
+                true, false, true);
         Response response = hospitalWebTarget.request(MediaType.APPLICATION_JSON)
-                .post(Entity.entity("{}", MediaType.APPLICATION_JSON));
+                .post(Entity.entity(h, MediaType.APPLICATION_JSON));
         assertEquals(200, response.getStatus());
     }
 }
