@@ -7,6 +7,8 @@ import org.glassfish.jersey.server.ResourceConfig;
 import java.io.IOException;
 import java.net.URI;
 
+import com.patienthub.config.ApplicationConfig;
+
 /**
  * Main class.
  *
@@ -16,13 +18,15 @@ public class Main {
     public static final String BASE_URI = "http://localhost:8080/";
 
     /**
-     * Starts Grizzly HTTP server exposing JAX-RS resources defined in this application.
+     * Starts Grizzly HTTP server exposing JAX-RS resources defined in this
+     * application.
+     * 
      * @return Grizzly HTTP server.
      */
     public static HttpServer startServer() {
         // create a resource config that scans for JAX-RS resources and providers
         // in com.patienthub.api package
-        final ResourceConfig rc = new ResourceConfig().packages("com.patienthub.api");
+        final ResourceConfig rc = new ApplicationConfig();
 
         // create and start a new instance of grizzly http server
         // exposing the Jersey application at BASE_URI
@@ -31,6 +35,7 @@ public class Main {
 
     /**
      * Main method.
+     * 
      * @param args
      * @throws IOException
      */
@@ -39,7 +44,6 @@ public class Main {
         System.out.println(String.format("Jersey app started with endpoints available at "
                 + "%s%nHit Ctrl-C to stop it...", BASE_URI));
         System.in.read();
-        server.stop();
+        server.shutdown();
     }
 }
-
