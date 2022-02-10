@@ -48,11 +48,14 @@ public class HospitalResourceTest {
     @Test
     public void testcreateHospital() {
         WebTarget hospitalWebTarget = target.path("v1/hospital");
-        Hospital h = new Hospital("dublin city", "+2348169084566", "tumise@gmail.com", "E19ttt", "21 adesola",
-                "nigeria", "lago",
-                true, false, true);
+        // Hospital h = new Hospital("dublin city", "+2348169084566",
+        // "tumise@gmail.com", "E19ttt", "21 adesola",
+        // "nigeria", "lago",
+        // true, false, true);
+        Hospital h = new Hospital();
         Response response = hospitalWebTarget.request(MediaType.APPLICATION_JSON)
                 .post(Entity.entity(h, MediaType.APPLICATION_JSON));
-        assertEquals(200, response.getStatus());
+        System.out.println(response.toString());
+        assertEquals(400, response.getStatus());
     }
 }

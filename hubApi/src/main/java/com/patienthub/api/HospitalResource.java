@@ -1,6 +1,7 @@
 package com.patienthub.api;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -38,7 +39,7 @@ public class HospitalResource {
     }
 
     @POST
-    public Response create(Hospital detalis) {
+    public Response create(@Valid Hospital detalis) {
         Hospital hospital = dao.create(detalis);
         return Response.status(200).entity(hospital).build();
     }
