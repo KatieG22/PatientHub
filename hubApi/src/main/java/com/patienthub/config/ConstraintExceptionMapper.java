@@ -25,7 +25,7 @@ public class ConstraintExceptionMapper implements ExceptionMapper<ConstraintViol
 
     @Override
     public Response toResponse(ConstraintViolationException exception) {
-        return Response.status(Response.Status.BAD_REQUEST)
+        return Response.status(Response.Status.BAD_REQUEST.getStatusCode())
                 .entity(prepareMessage(exception))
                 .type(MediaType.APPLICATION_JSON)
                 .build();

@@ -20,8 +20,13 @@ public class Hospital {
 
     @NotNull(message = "please provide an address")
     private String addressLine;
+
+    @NotNull(message = "please provide a county")
     private String county;
+
+    @NotNull(message = "please provide a city")
     private String city;
+
     private boolean isHq;
     private boolean hasAdmin;
     private boolean isVerified;

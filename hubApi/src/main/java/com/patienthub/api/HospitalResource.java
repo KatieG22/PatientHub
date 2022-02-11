@@ -8,6 +8,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import com.patienthub.model.Hospital;
 import com.patienthub.service.HospitalDoa;
@@ -41,6 +42,6 @@ public class HospitalResource {
     @POST
     public Response create(@Valid Hospital detalis) {
         Hospital hospital = dao.create(detalis);
-        return Response.status(200).entity(hospital).build();
+        return Response.status(Status.CREATED.getStatusCode()).entity(hospital).build();
     }
 }
