@@ -6,3 +6,10 @@ Before project is run, please ensure to create a folder called
 Please not that for now on each `mvn clean test -X` run, you will need to clear your database table as data gets deleted in the db table.
 
 to run project, firstly run `mvn clean test -X`, if all test cases pass, you can proceed to runing `mvn exec:java`. Note that failed test cases will not a build a new `WAR` file.  
+
+
+
+
+## PostMan Documentation
+
+for more information on available endpoints, please view the postman docs [Here](https://documenter.getpostman.com/view/14485540/UVeMHiTo) 
