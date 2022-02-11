@@ -2,29 +2,37 @@ package com.patienthub.model;
 
 import javax.json.bind.annotation.JsonbProperty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class Hospital {
 
     @JsonbProperty("hospitalName")
     @NotNull(message = "an hospital must have a name")
+    @Size(max = 25)
     private String name;
 
     @NotNull(message = "please provide a contact number")
+    @Size(max = 15)
     private String contactNum;
 
     @NotNull(message = "please provide a contact email")
+    @Size(max = 30)
     private String contactEmail;
 
     @NotNull(message = "please provide an eir code")
+    @Size(max = 10)
     private String eirCode;
 
     @NotNull(message = "please provide an address")
+    @Size(max = 25)
     private String addressLine;
 
     @NotNull(message = "please provide a county")
+    @Size(max = 15)
     private String county;
 
     @NotNull(message = "please provide a city")
+    @Size(max = 15)
     private String city;
 
     private boolean isHq;
