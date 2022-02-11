@@ -4,21 +4,30 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
+import com.patienthub.config.TestAppConfig;
 import com.patienthub.model.Hospital;
 
 import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.jersey.test.JerseyTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
-public class HospitalResourceTest {
+public class HospitalResourceTest extends JerseyTest {
 
     private HttpServer server;
     private WebTarget target;
+
+    @Override
+    protected Application configure() {
+        return new TestAppConfig();
+    }
 
     @Before
     public void setUp() throws Exception {
@@ -39,6 +48,7 @@ public class HospitalResourceTest {
 
     @After
     public void tearDown() throws Exception {
+
         server.shutdownNow();
     }
 
@@ -46,16 +56,25 @@ public class HospitalResourceTest {
      * Test to see that the message "Got it!" is sent in the response.
      */
     @Test
-    public void testcreateHospital() {
+    public void testUserCanCreateHospital() {
         WebTarget hospitalWebTarget = target.path("v1/hospital");
-        // Hospital h = new Hospital("dublin city", "+2348169084566",
-        // "tumise@gmail.com", "E19ttt", "21 adesola",
-        // "nigeria", "lago",
-        // true, false, true);
+        Hospital h = new Hospital("dublin city", "+2348169084566",
+                "tumise@gmail.com", "E19ttt", "21 adesola",
+                "nigeria", "lago",
+                true, false, true);
+        Response response = hospitalWebTarget.request(MediaType.APPLICATION_JSON)
+                .post(Entity.entity(h, MediaType.APPLICATION_JSON));
+        System.out.println(response.toString());
+        assertEquals(Status.CREATED.getStatusCode(), response.getStatus());
+    }
+
+    @Test
+    public void testUserMustFill_RequiredFieldsToCreateHospital() {
+        WebTarget hospitalWebTarget = target.path("v1/hospital");
         Hospital h = new Hospital();
         Response response = hospitalWebTarget.request(MediaType.APPLICATION_JSON)
                 .post(Entity.entity(h, MediaType.APPLICATION_JSON));
         System.out.println(response.toString());
-        assertEquals(400, response.getStatus());
+        assertEquals(Status.BAD_REQUEST.getStatusCode(), response.getStatus());
     }
 }

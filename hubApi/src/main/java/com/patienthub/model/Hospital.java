@@ -109,11 +109,11 @@ public class Hospital {
         return isHq;
     }
 
-    public void setHq(boolean isHq) {
+    public void setIsHq(boolean isHq) {
         this.isHq = isHq;
     }
 
-    public boolean isHasAdmin() {
+    public boolean hasAdmin() {
         return hasAdmin;
     }
 
@@ -125,7 +125,7 @@ public class Hospital {
         return isVerified;
     }
 
-    public void setVerified(boolean isVerified) {
+    public void setisVerified(boolean isVerified) {
         this.isVerified = isVerified;
     }
 
