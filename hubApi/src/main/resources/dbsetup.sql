@@ -16,3 +16,6 @@ hasAdmin BOOLEAN default false,
 isVerified BOOLEAN default false,
 primary key(eirCode)
 );
+
+
+
