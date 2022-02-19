@@ -1,5 +1,6 @@
 package com.patienthub.config;
 
+import com.patienthub.binding.AppBinder;
 import com.patienthub.filters.CORSFilter;
 
 import org.glassfish.jersey.server.ResourceConfig;

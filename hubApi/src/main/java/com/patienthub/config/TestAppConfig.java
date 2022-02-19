@@ -1,5 +1,7 @@
 package com.patienthub.config;
 
+import com.patienthub.binding.TestBinder;
+
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 

@@ -1,4 +1,4 @@
-package com.patienthub.config;
+package com.patienthub.errors;
 
 /**
  * class handles simple error display

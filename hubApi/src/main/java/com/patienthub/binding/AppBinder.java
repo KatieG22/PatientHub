@@ -1,4 +1,4 @@
-package com.patienthub.config;
+package com.patienthub.binding;
 
 import com.patienthub.utils.DbConfig;
 import com.patienthub.utils.ProdDbConfig;

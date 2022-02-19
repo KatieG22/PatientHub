@@ -10,6 +10,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 
+import com.patienthub.errors.ConstraintError;
+
 /**
  * class handles how constraint violations are displayed to user.
  * 
