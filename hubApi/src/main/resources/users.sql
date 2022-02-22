@@ -14,6 +14,7 @@ create table hAdmin(
 id int primary key,
 pps varchar(15) not null,
 eirCode VARCHAR(10) NOT NULL,
- FOREIGN KEY (pps) REFERENCES users(pps),
-  FOREIGN KEY (eirCode) REFERENCES hospital(eirCode)
+FOREIGN KEY (pps) REFERENCES users(pps),
+FOREIGN KEY (eirCode) REFERENCES hospital(eirCode)
+ON DELETE CASCADE  
 )

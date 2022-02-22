@@ -11,6 +11,7 @@ import javax.ws.rs.core.Response.Status;
 
 import com.patienthub.config.TestAppConfig;
 import com.patienthub.model.Hospital;
+import com.patienthub.service.HospitalService;
 
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.test.JerseyTest;
@@ -23,6 +24,7 @@ public class HospitalResourceTest extends JerseyTest {
 
     private HttpServer server;
     private WebTarget target;
+    private HospitalService service;
 
     @Override
     protected Application configure() {
@@ -44,6 +46,7 @@ public class HospitalResourceTest extends JerseyTest {
         // org.glassfish.jersey.media.json.JsonJaxbFeature());
 
         target = c.target(Main.BASE_URI);
+        service = new HospitalService();
     }
 
     @After
@@ -64,7 +67,8 @@ public class HospitalResourceTest extends JerseyTest {
                 true, false, true);
         Response response = hospitalWebTarget.request(MediaType.APPLICATION_JSON)
                 .post(Entity.entity(h, MediaType.APPLICATION_JSON));
-        System.out.println(response.toString());
+
+        service.delete(h);
         assertEquals(Status.CREATED.getStatusCode(), response.getStatus());
     }
 
