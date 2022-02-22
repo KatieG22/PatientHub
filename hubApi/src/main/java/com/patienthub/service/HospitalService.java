@@ -3,6 +3,7 @@ package com.patienthub.service;
 import com.patienthub.data.Dao;
 import com.patienthub.data.HospitalDao;
 import com.patienthub.model.Hospital;
+import com.patienthub.webexceptions.DuplicateData;
 
 public class HospitalService {
 
@@ -12,7 +13,7 @@ public class HospitalService {
 
         // check if hospital exists
         if (dao.exists(hospital)) {
-            // raise exception
+            throw new DuplicateData("Hospital with Eircode " + hospital.getEirCode() + " exists");
         } else {
 
             dao.save(hospital);
