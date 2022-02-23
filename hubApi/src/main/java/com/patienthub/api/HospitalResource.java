@@ -1,11 +1,7 @@
 package com.patienthub.api;
 
-import java.util.List;
-
-import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -14,8 +10,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import com.patienthub.model.Hospital;
-import com.patienthub.service.HospitalDoa;
-import com.patienthub.utils.DbConfig;
+import com.patienthub.service.HospitalService;
 
 /**
  * Root resource (exposed at "myresource" path)
@@ -32,25 +27,11 @@ public class HospitalResource {
      * @return String that will be returned as a text/plain response.
      */
 
-    private final DbConfig dbConfig;
-    private HospitalDoa dao;
-
-    @Inject
-    public HospitalResource(DbConfig dbConfig) {
-        this.dbConfig = dbConfig;
-        dao = new HospitalDoa(dbConfig);
-
-    }
-
-    @GET
-    public Response fetchAll() {
-        List<Hospital> hospitals = dao.fetchAll();
-        return Response.status(Status.OK.getStatusCode()).entity(hospitals).build();
-    }
+    private static HospitalService service = new HospitalService();
 
     @POST
-    public Response create(@Valid Hospital detalis) {
-        Hospital hospital = dao.create(detalis);
+    public Response create(@Valid Hospital hospital) {
+        service.save(hospital);
         return Response.status(Status.CREATED.getStatusCode()).entity(hospital).build();
     }
 }

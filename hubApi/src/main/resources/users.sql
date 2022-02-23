@@ -1,4 +1,5 @@
 drop table if exists users;
+
 create table users(
 firstName varchar(15) not null,
 lastName varchar(15) not null,

@@ -11,6 +11,7 @@ import javax.ws.rs.core.Response.Status;
 
 import com.patienthub.config.TestAppConfig;
 import com.patienthub.model.Hospital;
+import com.patienthub.service.HospitalService;
 
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.test.JerseyTest;
@@ -23,6 +24,8 @@ public class HospitalResourceTest extends JerseyTest {
 
     private HttpServer server;
     private WebTarget target;
+    private HospitalService service;
+    private Hospital hospital;
 
     @Override
     protected Application configure() {
@@ -44,6 +47,11 @@ public class HospitalResourceTest extends JerseyTest {
         // org.glassfish.jersey.media.json.JsonJaxbFeature());
 
         target = c.target(Main.BASE_URI);
+        service = new HospitalService();
+        hospital = new Hospital("dublin city", "+2348169084566",
+                "tumise@gmail.com", "E19ttt", "21 adesola",
+                "nigeria", "lago",
+                true, false, true);
     }
 
     @After
@@ -58,14 +66,23 @@ public class HospitalResourceTest extends JerseyTest {
     @Test
     public void testUserCanCreateHospital() {
         WebTarget hospitalWebTarget = target.path("v1/hospital");
-        Hospital h = new Hospital("dublin city", "+2348169084566",
-                "tumise@gmail.com", "E19ttt", "21 adesola",
-                "nigeria", "lago",
-                true, false, true);
+
         Response response = hospitalWebTarget.request(MediaType.APPLICATION_JSON)
-                .post(Entity.entity(h, MediaType.APPLICATION_JSON));
-        System.out.println(response.toString());
+                .post(Entity.entity(hospital, MediaType.APPLICATION_JSON));
+        service.delete(hospital);
         assertEquals(Status.CREATED.getStatusCode(), response.getStatus());
+    }
+
+    @Test
+    public void testBadRequestIfHospitalExistsInDB() {
+        service.save(hospital);
+        WebTarget hospitalTarget = target.path(("v1/hospital"));
+
+        Response response = hospitalTarget.request(MediaType.APPLICATION_JSON)
+                .post(Entity.entity(hospital, MediaType.APPLICATION_JSON));
+        System.out.println(response.toString());
+        service.delete(hospital);
+        assertEquals(Status.BAD_REQUEST.getStatusCode(), response.getStatus());
     }
 
     @Test
@@ -74,7 +91,6 @@ public class HospitalResourceTest extends JerseyTest {
         Hospital h = new Hospital();
         Response response = hospitalWebTarget.request(MediaType.APPLICATION_JSON)
                 .post(Entity.entity(h, MediaType.APPLICATION_JSON));
-        System.out.println(response.toString());
         assertEquals(Status.BAD_REQUEST.getStatusCode(), response.getStatus());
     }
 }
