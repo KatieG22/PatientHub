@@ -31,7 +31,7 @@ on delete cascade
 );
 
 drop table if exists hPatient;
-create table hPatient(
+create table hpatient(
 pps varchar(15) not null,
 patientId varchar(15) not null,
 eirCode varchar(10) not null,
