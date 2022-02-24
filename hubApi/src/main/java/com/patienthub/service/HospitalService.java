@@ -11,12 +11,10 @@ public class HospitalService {
 
     public void save(Hospital hospital) {
 
-        // check if hospital exists
-        if (dao.exists(hospital)) {
+        // if hospital isn't saved in db, then it's a dubplicate
+        boolean saved = dao.save(hospital);
+        if (!saved) {
             throw new DuplicateData("Hospital with Eircode " + hospital.getEirCode() + " exists");
-        } else {
-
-            dao.save(hospital);
         }
 
     }

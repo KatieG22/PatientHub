@@ -2,6 +2,8 @@ package com.patienthub.model;
 
 import javax.validation.constraints.NotNull;
 
+import com.patienthub.constraintAnnotations.Email;
+
 public class User {
 
     @NotNull(message = "first name is required")
@@ -14,6 +16,7 @@ public class User {
     private String contactNum;
 
     @NotNull(message = "email is required")
+    @Email(message = "not a valid mail")
     private String email;
 
     @NotNull(message = "pps is required")

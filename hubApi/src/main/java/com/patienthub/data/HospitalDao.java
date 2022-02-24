@@ -21,6 +21,21 @@ public class HospitalDao implements Dao<Hospital> {
         return null;
     }
 
+    public boolean doesEirCode(String eirCode) {
+
+        try {
+            PreparedStatement stmt = con.prepareStatement("select * from hospital where eirCode=?");
+            stmt.setString(1, eirCode);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
     @Override
     public List<Hospital> getAll() {
         // TODO Auto-generated method stub
@@ -28,7 +43,7 @@ public class HospitalDao implements Dao<Hospital> {
     }
 
     @Override
-    public void save(Hospital hospital) {
+    public boolean save(Hospital hospital) {
         // TODO Auto-generated method stub
         try {
             PreparedStatement stmt = con.prepareStatement(
@@ -43,11 +58,13 @@ public class HospitalDao implements Dao<Hospital> {
             stmt.setString(6, hospital.getCounty());
             stmt.setString(7, hospital.getCity());
             stmt.executeUpdate();
+            return true;
 
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             System.out.println(e.getMessage() + "<---- cause");
+            return false;
 
         }
 
@@ -75,20 +92,40 @@ public class HospitalDao implements Dao<Hospital> {
 
     }
 
-    public boolean exists(Hospital hospital) {
-
+    protected Hospital processResultSet(ResultSet rs) {
+        Hospital hospital = new Hospital();
         try {
-            PreparedStatement stmt = con.prepareStatement("select * from hospital where eircode= ?");
-            stmt.setString(1, hospital.getEirCode());
-            ResultSet rs = stmt.executeQuery();
-            return rs.next();
+            hospital.setName(rs.getString("hName"));
+            hospital.setContactNum(rs.getString("contactNum"));
+            hospital.setContactEmail(rs.getString("contactEmail"));
+            hospital.setEirCode(rs.getString("eirCode"));
+            hospital.setAddressLine(rs.getString("addressLine"));
+            hospital.setCounty(rs.getString("county"));
+            hospital.setCity(rs.getString("city"));
+            hospital.setIsHq(rs.getBoolean("isHq"));
+            hospital.setHasAdmin(rs.getBoolean("hasAdmin"));
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            return false;
         }
+        return hospital;
 
     }
+    // public boolean exists(Hospital hospital) {
+
+    // try {
+    // PreparedStatement stmt = con.prepareStatement("select * from hospital where
+    // eircode= ?");
+    // stmt.setString(1, hospital.getEirCode());
+    // ResultSet rs = stmt.executeQuery();
+    // return rs.next();
+    // } catch (SQLException e) {
+    // // TODO Auto-generated catch block
+    // e.printStackTrace();
+    // return false;
+    // }
+
+    // }
 
 }
 

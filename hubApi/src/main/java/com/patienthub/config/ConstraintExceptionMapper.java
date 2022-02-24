@@ -38,11 +38,11 @@ public class ConstraintExceptionMapper implements ExceptionMapper<ConstraintViol
         ArrayList<ConstraintError> errors = new ArrayList<>();
         for (ConstraintViolation<?> cv : exception.getConstraintViolations()) {
             String msg = cv.getMessage();
-            String propertyPath = cv.getPropertyPath().toString();
+            // String propertyPath = cv.getPropertyPath().toString();
             ConstraintError error = new ConstraintError();
             error.setMessage(msg);
             // property path should display as field name
-            error.setDetail(propertyPath);
+            // error.setDetail(propertyPath);
             errors.add(error);
         }
         return errors;
