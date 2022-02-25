@@ -26,7 +26,7 @@ public class User {
 
     private String role;
 
-    private boolean active;
+    private boolean isactive;
 
     public User() {
 
@@ -36,7 +36,7 @@ public class User {
             @NotNull(message = "last name is required") String lastName,
             @NotNull(message = "contact number is required") String contactNum,
             @NotNull(message = "email is required") String email, @NotNull(message = "pps is required") String pps,
-            String gender, String role, boolean active) {
+            String gender, String role, boolean isactive) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.contactNum = contactNum;
@@ -44,7 +44,7 @@ public class User {
         this.pps = pps;
         this.gender = gender;
         this.role = role;
-        this.active = active;
+        this.isactive = isactive;
     }
 
     public String getFirstName() {
@@ -103,12 +103,12 @@ public class User {
         this.role = role;
     }
 
-    public boolean isActive() {
-        return active;
+    public boolean isisactive() {
+        return isactive;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setisactive(boolean isactive) {
+        this.isactive = isactive;
     }
 
 }

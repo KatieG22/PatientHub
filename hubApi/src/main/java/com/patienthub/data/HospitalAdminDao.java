@@ -2,6 +2,7 @@ package com.patienthub.data;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -59,5 +60,40 @@ public class HospitalAdminDao implements Dao<HospitalAdmin> {
         // TODO Auto-generated method stub
 
     }
-
+    public HospitalAdmin getByEircode(String eirCode){
+        try {
+            PreparedStatement stmt = con.prepareStatement("select * from getAdmin where eirCode = ?");
+            stmt.setString(1, eirCode);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            return processResultSet(rs);
+            
+        
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+    protected HospitalAdmin processResultSet(ResultSet rs) {
+        HospitalAdmin hospitalAdmin = new HospitalAdmin();
+        try {
+            hospitalAdmin.setContactNum(rs.getString("contactNo"));
+            hospitalAdmin.setFirstName(rs.getString("firstName"));
+            hospitalAdmin.setLastName(rs.getString("lastName"));
+            hospitalAdmin.setPps(rs.getString("pps"));
+            hospitalAdmin.setRole(rs.getString("role"));
+            hospitalAdmin.setEmail(rs.getString("email"));
+            hospitalAdmin.setGender(rs.getString("gender"));
+            hospitalAdmin.setisactive(rs.getBoolean("isactive"));
+            hospitalAdmin.setHospital(new Hospital(rs.getString("eirCode")));
+            return hospitalAdmin;
+        } catch (SQLException e) {
+            //TODO: handle exception
+            e.printStackTrace();
+        }  
+    }
+        
 }
+
+
+//
