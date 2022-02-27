@@ -12,9 +12,4 @@ public class HospitalAdmin extends User {
         this.hospital = hospital;
     }
 
-    public void assignHospitalEircode(String eirCode) {
-        hospital.setEirCode(eirCode);
-
-    }
-
 }

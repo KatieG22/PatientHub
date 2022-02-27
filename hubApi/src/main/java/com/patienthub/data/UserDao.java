@@ -30,7 +30,7 @@ public class UserDao implements Dao<User> {
         // TODO Auto-generated method stub
         try {
             PreparedStatement stmt = con.prepareStatement(
-                    "insert into user (firstName, lastName, contactNum," +
+                    "insert into users (firstName, lastName, contactNo," +
                             "email,pps,gender,role,active)" +
                             "Values(?, ?, ?, ?, ?, ?, ?,? )");
             stmt.setString(1, user.getFirstName());

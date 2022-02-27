@@ -1,25 +1,31 @@
 package com.patienthub.model;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.patienthub.constraintAnnotations.Email;
 
 public class User {
 
     @NotNull(message = "first name is required")
+    @Size(max = 15)
     private String firstName;
 
     @NotNull(message = "last name is required")
+    @Size(max = 15)
     private String lastName;
 
     @NotNull(message = "contact number is required")
+    @Size(max = 15)
     private String contactNum;
 
     @NotNull(message = "email is required")
     @Email(message = "not a valid mail")
+    @Size(max = 25)
     private String email;
 
     @NotNull(message = "pps is required")
+    @Size(max = 15)
     private String pps;
 
     private String gender = "others";
