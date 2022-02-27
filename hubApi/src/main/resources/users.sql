@@ -5,12 +5,13 @@ lastName varchar(15) not null,
 contactNo varchar(15) not null,
 email varchar(25) not null,
 pps varchar(15) not null primary key,
-gender enum ('male','female','prefer not to say'),
+gender enum ('male','female','not specified') DEFAULT "not specified",
 role enum ('admin','staff','patient','doctor')
 );
 
 ALTER TABLE users ADD column isactive BOOLEAN DEFAULT false;
 ALTER TABLE users ADD column password VARCHAR(256) NOT NULL;
+ALTER TABLE users MODIFY columngender enum ('male','female','not specified') DEFAULT "not specified";
 
 drop table if exists hAdmin;
 create table hAdmin(

@@ -11,6 +11,8 @@ import javax.ws.rs.core.Response;
 
 import com.patienthub.model.HospitalAdmin;
 import com.patienthub.service.HospitalAdminService;
+import com.patienthub.webexceptions.InvalidInput;
+
 import javax.ws.rs.core.Response.Status;
 
 @Path("v1/hospitaladmin")
@@ -24,6 +26,9 @@ public class HospitalAdminResource {
     @Path("/register")
     public Response create(@QueryParam("eirCode") String eirCode, @Valid HospitalAdmin hospitalAdmin) {
         // TODO: validate phone number, email and pps number
+        if (eirCode == null) {
+            throw new InvalidInput("please provide an eirCode in url param");
+        }
         hospialAdminservice.save(hospitalAdmin, eirCode);
         return Response.status(Status.CREATED.getStatusCode()).entity(hospitalAdmin).build();
     }
