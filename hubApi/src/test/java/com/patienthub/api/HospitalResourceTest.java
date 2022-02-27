@@ -80,8 +80,9 @@ public class HospitalResourceTest extends JerseyTest {
 
         Response response = hospitalTarget.request(MediaType.APPLICATION_JSON)
                 .post(Entity.entity(hospital, MediaType.APPLICATION_JSON));
-        System.out.println(response.toString());
+        System.out.println(response.toString() + "hhhhhhhhhh");
         service.delete(hospital);
+
         assertEquals(Status.BAD_REQUEST.getStatusCode(), response.getStatus());
     }
 

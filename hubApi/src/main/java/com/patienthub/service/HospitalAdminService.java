@@ -15,10 +15,16 @@ public class HospitalAdminService {
     public void save(HospitalAdmin admin, String eirCode) {
         HospitalDao hospitalDao = new HospitalDao();
         UserDao userDao = new UserDao();
+        Hospital dbHospital = hospitalDao.getByEirCode(eirCode);
 
-        if (hospitalDao.doesEirCodeExist(eirCode) == false) {
+        if (dbHospital == null) {
             // throw object does not exist error
             throw new ObjectDoesNotExist("hospital with eircode " + eirCode + " does not exist");
+        }
+        // check if hospital already has admin
+        if (dbHospital != null && dbHospital.hasAdmin() == true) {
+            // hospital already has an admin
+            throw new DuplicateData("hospital already has an admin");
         }
 
         if (userDao.save(admin) == false) {
@@ -26,11 +32,12 @@ public class HospitalAdminService {
 
         }
 
-        // check if hospital already has admin
-        // query hospital admin table for eircode if it's there then hospital already
-        // has an admin
-        admin.setHospital(new Hospital(eirCode));
+        Hospital hospital = new Hospital(eirCode);
+        admin.setHospital(hospital);
         hospitalAdminDao.save(admin);
+        hospital.setHasAdmin(true);
+        // update admin status to true
+        hospitalDao.updateAdminStatus(hospital);
 
     }
 }

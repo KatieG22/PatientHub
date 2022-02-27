@@ -31,8 +31,8 @@ public class UserDao implements Dao<User> {
         try {
             PreparedStatement stmt = con.prepareStatement(
                     "insert into users (firstName, lastName, contactNo," +
-                            "email,pps,gender,role,active)" +
-                            "Values(?, ?, ?, ?, ?, ?, ?,? )");
+                            "email,pps,gender,role)" +
+                            "Values(?, ?, ?, ?, ?, ?, ? )");
             stmt.setString(1, user.getFirstName());
             stmt.setString(2, user.getLastName());
             stmt.setString(3, user.getContactNum());
@@ -40,7 +40,6 @@ public class UserDao implements Dao<User> {
             stmt.setString(5, user.getPps());
             stmt.setString(6, user.getGender());
             stmt.setString(7, user.getRole());
-            stmt.setInt(8, 0);
 
             stmt.executeUpdate();
             return true;
@@ -56,14 +55,23 @@ public class UserDao implements Dao<User> {
     }
 
     @Override
-    public void update(User t, String[] params) {
+    public void update(User t) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void delete(User t) {
+    public void delete(User user) {
         // TODO Auto-generated method stub
+
+        try {
+            PreparedStatement stmt = con.prepareStatement("delete from users where pps= ?");
+            stmt.setString(1, user.getPps());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
     }
 

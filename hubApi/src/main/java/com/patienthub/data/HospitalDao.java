@@ -21,18 +21,22 @@ public class HospitalDao implements Dao<Hospital> {
         return null;
     }
 
-    public boolean doesEirCodeExist(String eirCode) {
-
+    public Hospital getByEirCode(String eirCode) {
+        // https://coderanch.com/t/646858/databases/implement-DAO-update-method
         try {
             PreparedStatement stmt = con.prepareStatement("select * from hospital where eirCode=?");
             stmt.setString(1, eirCode);
             ResultSet rs = stmt.executeQuery();
-            return rs.next();
+            // if item present in db then it'll return at least one row
+            if (rs.next() && rs.getRow() != 0) {
+                return processResultSet(rs);
+            }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            return false;
+
         }
+        return null;
 
     }
 
@@ -71,8 +75,41 @@ public class HospitalDao implements Dao<Hospital> {
     }
 
     @Override
-    public void update(Hospital t, String[] params) {
+    public void update(Hospital hospital) {
         // TODO Auto-generated method stub
+        try {
+            PreparedStatement stmt = con.prepareStatement(
+                    "UPDATE hospital SET hName=?, contactNum=?, contactEmail=?, eirCode=?, addressLine=?, county=?, city=? WHERE eirCode=?");
+            stmt.setString(1, hospital.getName());
+            stmt.setString(2, hospital.getContactNum());
+            stmt.setString(3, hospital.getContactEmail());
+            stmt.setString(4, hospital.getEirCode());
+            stmt.setString(5, hospital.getAddressLine());
+            stmt.setString(6, hospital.getCounty());
+            stmt.setString(7, hospital.getCity());
+            stmt.setString(8, hospital.getEirCode());
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public void updateAdminStatus(Hospital hospital) {
+
+        try {
+            PreparedStatement stmt = con.prepareStatement(
+                    "UPDATE hospital SET hasAdmin=? WHERE eirCode=?");
+            stmt.setBoolean(1, hospital.hasAdmin());
+            stmt.setString(2, hospital.getEirCode());
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
     }
 
     @Override

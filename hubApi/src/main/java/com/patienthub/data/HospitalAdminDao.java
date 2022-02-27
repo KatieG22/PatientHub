@@ -43,14 +43,14 @@ public class HospitalAdminDao implements Dao<HospitalAdmin> {
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            System.out.println(e.getMessage() + "<---- cause");
+            System.out.println(e.getMessage() + "<---- caushhhhhe");
 
         }
         return false;
     }
 
     @Override
-    public void update(HospitalAdmin t, String[] params) {
+    public void update(HospitalAdmin t) {
         // TODO Auto-generated method stub
 
     }

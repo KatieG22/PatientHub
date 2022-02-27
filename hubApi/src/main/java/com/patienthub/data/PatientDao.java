@@ -26,7 +26,7 @@ public class PatientDao implements Dao<Patient> {
     }
 
     @Override
-    public void update(Patient t, String[] params) {
+    public void update(Patient t) {
         // TODO Auto-generated method stub
 
     }
