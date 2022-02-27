@@ -3,6 +3,7 @@ package com.patienthub.data;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,22 @@ public class UserDao implements Dao<User> {
     public Optional<User> get(long id) {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    public User getByPpsNumber(String pps) {
+
+        try {
+            PreparedStatement stmt = con.prepareStatement("select * from users where pps=?");
+            stmt.setString(1, pps);
+            stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
+            return processResultSet(rs);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+
     }
 
     @Override
@@ -80,6 +97,29 @@ public class UserDao implements Dao<User> {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
+    }
+
+    protected User processResultSet(ResultSet rs) {
+        User user = new User();
+        try {
+            if (rs.next() && rs.getRow() != 0) {
+                user.setFirstName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setContactNum(rs.getString("contactNo"));
+                user.setEmail(rs.getString("email"));
+                user.setPps(rs.getString("pps"));
+                user.setGender(rs.getString("gender"));
+                user.setisactive(rs.getBoolean("isactive"));
+                user.setPassword(rs.getString("password"));
+                return user;
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return null;
 
     }
 

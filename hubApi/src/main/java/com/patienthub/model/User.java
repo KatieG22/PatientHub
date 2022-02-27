@@ -45,15 +45,14 @@ public class User {
             @NotNull(message = "last name is required") String lastName,
             @NotNull(message = "contact number is required") String contactNum,
             @NotNull(message = "email is required") String email, @NotNull(message = "pps is required") String pps,
-            String gender, String role, boolean isactive) {
+            String gender) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.contactNum = contactNum;
         this.email = email;
         this.pps = pps;
         this.gender = gender;
-        this.role = role;
-        this.isactive = isactive;
+        this.isactive = false;
     }
 
     public String getFirstName() {

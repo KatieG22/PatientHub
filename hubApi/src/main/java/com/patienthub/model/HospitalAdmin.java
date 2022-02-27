@@ -11,7 +11,7 @@ public class HospitalAdmin extends User {
             @NotNull(message = "contact number is required") String contactNum,
             @NotNull(message = "email is required") String email, @NotNull(message = "pps is required") String pps,
             String gender, Hospital hospital) {
-        super(firstName, lastName, contactNum, email, pps, gender, "admin", false);
+        super(firstName, lastName, contactNum, email, pps, gender);
         this.hospital = hospital;
 
     }
