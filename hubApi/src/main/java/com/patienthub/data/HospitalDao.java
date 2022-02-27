@@ -73,7 +73,6 @@ public class HospitalDao implements Dao<Hospital> {
     @Override
     public void update(Hospital t, String[] params) {
         // TODO Auto-generated method stub
-
     }
 
     @Override

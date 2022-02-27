@@ -60,20 +60,22 @@ public class HospitalAdminDao implements Dao<HospitalAdmin> {
         // TODO Auto-generated method stub
 
     }
-    public HospitalAdmin getByEircode(String eirCode){
+
+    public HospitalAdmin getByEircode(String eirCode) {
         try {
             PreparedStatement stmt = con.prepareStatement("select * from getAdmin where eirCode = ?");
             stmt.setString(1, eirCode);
             ResultSet rs = stmt.executeQuery();
             rs.next();
             return processResultSet(rs);
-            
-        
+
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        return null;
     }
+
     protected HospitalAdmin processResultSet(ResultSet rs) {
         HospitalAdmin hospitalAdmin = new HospitalAdmin();
         try {
@@ -86,14 +88,12 @@ public class HospitalAdminDao implements Dao<HospitalAdmin> {
             hospitalAdmin.setGender(rs.getString("gender"));
             hospitalAdmin.setisactive(rs.getBoolean("isactive"));
             hospitalAdmin.setHospital(new Hospital(rs.getString("eirCode")));
-            return hospitalAdmin;
+
         } catch (SQLException e) {
-            //TODO: handle exception
+            // TODO: handle exception
             e.printStackTrace();
-        }  
+        }
+        return hospitalAdmin;
     }
-        
+
 }
-
-
-//
