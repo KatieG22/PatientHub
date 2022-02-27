@@ -13,11 +13,11 @@ ALTER TABLE users ADD column isactive BOOLEAN DEFAULT false;
 
 drop table if exists hAdmin;
 create table hAdmin(
-id int primary key,
+id int primary key AUTO_INCREMENT,
 pps varchar(15) not null,
-eirCode VARCHAR(10) NOT NULL,
+hospital VARCHAR(10) NOT NULL,
 FOREIGN KEY (pps) REFERENCES users(pps),
-FOREIGN KEY (eirCode) REFERENCES hospital(eirCode)
+FOREIGN KEY (hospital) REFERENCES hospital(eirCode)
 ON DELETE CASCADE  
 )
 
