@@ -21,7 +21,7 @@ public class HospitalDao implements Dao<Hospital> {
         return null;
     }
 
-    public boolean doesEirCode(String eirCode) {
+    public boolean doesEirCodeExist(String eirCode) {
 
         try {
             PreparedStatement stmt = con.prepareStatement("select * from hospital where eirCode=?");

@@ -57,6 +57,10 @@ public class Hospital {
         this.isVerified = isVerified;
     }
 
+    public Hospital(String eirCode) {
+        this.eirCode = eirCode;
+    }
+
     public String getName() {
         return name;
     }
