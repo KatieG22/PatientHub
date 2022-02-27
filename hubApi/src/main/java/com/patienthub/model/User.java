@@ -34,6 +34,9 @@ public class User {
 
     private boolean isactive;
 
+    @NotNull(message = "password is required")
+    private String password;
+
     public User() {
 
     }
@@ -115,6 +118,14 @@ public class User {
 
     public void setisactive(boolean isactive) {
         this.isactive = isactive;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }

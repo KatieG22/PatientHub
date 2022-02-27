@@ -19,7 +19,7 @@ public class Patient extends User {
             @NotNull(message = "email is required") String email, @NotNull(message = "pps is required") String pps,
             String gender, String role, boolean isactive, int patientID, Hospital hospital, Doctor registeredBy,
             Doctor currentDoctor) {
-        super(firstName, lastName, contactNum, email, pps, gender, role, isactive);
+        super(firstName, lastName, contactNum, email, pps, gender, "patient", isactive);
         this.patientID = patientID;
         this.hospital = hospital;
         this.registeredBy = registeredBy;

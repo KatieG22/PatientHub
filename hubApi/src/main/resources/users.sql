@@ -10,6 +10,7 @@ role enum ('admin','staff','patient','doctor')
 );
 
 ALTER TABLE users ADD column isactive BOOLEAN DEFAULT false;
+ALTER TABLE users ADD column password VARCHAR(256) NOT NULL;
 
 drop table if exists hAdmin;
 create table hAdmin(

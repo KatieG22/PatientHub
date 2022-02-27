@@ -1,11 +1,13 @@
 package com.patienthub.data;
 
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+import com.google.common.hash.Hashing;
 import com.patienthub.model.User;
 import com.patienthub.utils.Database;
 import com.patienthub.utils.ProdDbConfig;
@@ -28,11 +30,16 @@ public class UserDao implements Dao<User> {
     @Override
     public boolean save(User user) {
         // TODO Auto-generated method stub
+        String password = user.getPassword();
+
+        String hashedPasssword = Hashing.sha256()
+                .hashString(password, StandardCharsets.UTF_8)
+                .toString();
         try {
             PreparedStatement stmt = con.prepareStatement(
                     "insert into users (firstName, lastName, contactNo," +
-                            "email,pps,gender,role)" +
-                            "Values(?, ?, ?, ?, ?, ?, ? )");
+                            "email,pps,gender,role,password)" +
+                            "Values(?, ?, ?, ?, ?, ?, ?,? )");
             stmt.setString(1, user.getFirstName());
             stmt.setString(2, user.getLastName());
             stmt.setString(3, user.getContactNum());
@@ -40,6 +47,7 @@ public class UserDao implements Dao<User> {
             stmt.setString(5, user.getPps());
             stmt.setString(6, user.getGender());
             stmt.setString(7, user.getRole());
+            stmt.setString(8, hashedPasssword);
 
             stmt.executeUpdate();
             return true;

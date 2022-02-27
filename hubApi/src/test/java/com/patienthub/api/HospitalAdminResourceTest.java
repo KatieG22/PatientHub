@@ -60,9 +60,10 @@ public class HospitalAdminResourceTest extends JerseyTest {
                 "nigeria", "lago",
                 true, false, true);
 
-        hospitalAdmin = new HospitalAdmin("tumise", "alade", "+353898999", "oladele.aalde@gmail.com", "000000295",
+        hospitalAdmin = new HospitalAdmin("tumise", "alade", "+353898999", "aalde@gmail.com", "000000295",
                 "male",
                 hospital);
+        hospitalAdmin.setPassword("password");
     }
 
     @After
@@ -81,6 +82,8 @@ public class HospitalAdminResourceTest extends JerseyTest {
         WebTarget hospitalTarget = target.path("v1/hospitaladmin/register").queryParam("eirCode", eirCode);
         Response response = hospitalTarget.request(MediaType.APPLICATION_JSON)
                 .post(Entity.entity(hospitalAdmin, MediaType.APPLICATION_JSON));
+        System.out.println(response.readEntity(String.class) +
+                "----------------------------");
         assertEquals(Status.CREATED.getStatusCode(), response.getStatus());
 
     }
@@ -97,7 +100,7 @@ public class HospitalAdminResourceTest extends JerseyTest {
 
     @Test
     public void testHospitalWithExistingAdminCannotSignUpNewAdmin() {
-        // check that a hosptial that already has an admin cannot have multiple admins
+        // check that a hosptial that already has an admin cannot have multiple
         hospitalAdminDao = new HospitalAdminDao();
         hospitalDao.save(hospital);
         // add saved user to hospital admin table
