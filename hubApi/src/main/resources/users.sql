@@ -11,30 +11,14 @@ role enum ('admin','staff','patient','doctor')
 
 ALTER TABLE users ADD column isactive BOOLEAN DEFAULT false;
 ALTER TABLE users ADD column password VARCHAR(256) NOT NULL;
-ALTER TABLE users MODIFY columngender enum ('male','female','not specified') DEFAULT "not specified";
+ALTER TABLE users MODIFY column gender enum ('male','female','not specified') DEFAULT "not specified";
 
 drop table if exists hAdmin;
 create table hAdmin(
 id int primary key AUTO_INCREMENT,
 pps varchar(15) not null,
 hospital VARCHAR(10) NOT NULL,
-FOREIGN KEY (pps) REFERENCES users(pps),
-FOREIGN KEY (hospital) REFERENCES hospital(eirCode)
-ON DELETE CASCADE  
+CONSTRAINT hospitalAdmin FOREIGN KEY (pps) REFERENCES users(pps)  ON DELETE CASCADE,
+CONSTRAINT adminHospital FOREIGN KEY (hospital) REFERENCES hospital(eirCode) ON DELETE CASCADE  
 )
 
-
-
-drop table if exists hpatient;
-create table hpatient(
-pps varchar(15) not null,
-patientId int primary key AUTO_INCREMENT,
-eirCode varchar(15) not null,
-registeredBy varchar(15) not null,
-currentDoctor varchar(15) not null,
-FOREIGN KEY (pps) REFERENCES users(pps),
-FOREIGN KEY (eirCode) REFERENCES hospital(eirCode),
-FOREIGN KEY (registeredBy) REFERENCES users(pps),
-FOREIGN KEY (currentDoctor) REFERENCES users(pps)
-on delete cascade
-);
