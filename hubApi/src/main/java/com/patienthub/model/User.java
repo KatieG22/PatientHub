@@ -1,8 +1,11 @@
 package com.patienthub.model;
 
+import java.nio.charset.StandardCharsets;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.google.common.hash.Hashing;
 import com.patienthub.constraintAnnotations.Email;
 
 public class User {
@@ -125,6 +128,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean passwordValid(String providedPassword){
+        String hashOfProvidedPassword = Hashing.sha256()
+        .hashString(password, StandardCharsets.UTF_8)
+        .toString();
+        return password.equals(hashOfProvidedPassword);
     }
 
 }
