@@ -1,6 +1,7 @@
 package com.patienthub.service;
 
 import com.patienthub.data.UserDao;
+import com.patienthub.model.Credentials;
 import com.patienthub.model.User;
 import com.patienthub.webexceptions.PasswordMismatch;
 import com.patienthub.webexceptions.UserDoesNotExist;
