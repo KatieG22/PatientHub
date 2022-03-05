@@ -27,7 +27,6 @@ public class UserDao implements Dao<User> {
         try {
             PreparedStatement stmt = con.prepareStatement("select * from users where pps=?");
             stmt.setString(1, pps);
-            stmt.executeQuery();
             ResultSet rs = stmt.executeQuery();
             return processResultSet(rs);
         } catch (SQLException e) {
