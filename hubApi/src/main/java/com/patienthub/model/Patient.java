@@ -17,7 +17,7 @@ public class Patient extends User {
             @NotNull(message = "last name is required") String lastName,
             @NotNull(message = "contact number is required") String contactNum,
             @NotNull(message = "email is required") String email, @NotNull(message = "pps is required") String pps,
-            String gender, String role, int patientID, Hospital hospital, Doctor registeredBy,
+            Gender gender, String role, int patientID, Hospital hospital, Doctor registeredBy,
             Doctor currentDoctor) {
         super(firstName, lastName, contactNum, email, pps, gender);
         this.patientID = patientID;

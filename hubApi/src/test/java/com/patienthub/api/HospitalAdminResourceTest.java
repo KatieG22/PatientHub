@@ -16,6 +16,7 @@ import com.patienthub.config.TestAppConfig;
 import com.patienthub.data.HospitalAdminDao;
 import com.patienthub.data.HospitalDao;
 import com.patienthub.data.UserDao;
+import com.patienthub.model.Gender;
 import com.patienthub.model.Hospital;
 import com.patienthub.model.HospitalAdmin;
 import com.patienthub.service.HospitalService;
@@ -61,8 +62,7 @@ public class HospitalAdminResourceTest extends JerseyTest {
                 true, false, true);
 
         hospitalAdmin = new HospitalAdmin("tumise", "alade", "+353898999", "aalde@gmail.com", "000000295",
-                "male",
-                hospital);
+                Gender.MALE, hospital);
         hospitalAdmin.setPassword("password");
     }
 

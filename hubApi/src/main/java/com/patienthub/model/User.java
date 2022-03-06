@@ -31,7 +31,7 @@ public class User {
     @Size(max = 15)
     private String pps;
 
-    private String gender = "others";
+    private Gender gender = Gender.OTHERS;
 
     private boolean isactive;
 
@@ -46,7 +46,7 @@ public class User {
             @NotNull(message = "last name is required") String lastName,
             @NotNull(message = "contact number is required") String contactNum,
             @NotNull(message = "email is required") String email, @NotNull(message = "pps is required") String pps,
-            String gender) {
+            Gender gender) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.contactNum = contactNum;
@@ -97,11 +97,20 @@ public class User {
     }
 
     public String getGender() {
-        return gender;
+        return gender.toString().toLowerCase();
     }
 
     public void setGender(String gender) {
-        this.gender = gender;
+        Gender userGender = Gender.OTHERS;
+        for (Gender gen : Gender.values()) {
+            if (gen.toString().toLowerCase() == gender) {
+                userGender = gen;
+                break;
+            }
+        }
+
+        this.gender = userGender;
+
     }
 
     public String getRole() {
@@ -126,7 +135,7 @@ public class User {
 
     public boolean passwordValid(String providedPassword) {
         String hashOfProvidedPassword = Hashing.sha256()
-                .hashString(password, StandardCharsets.UTF_8)
+                .hashString(providedPassword, StandardCharsets.UTF_8)
                 .toString();
         return password.equals(hashOfProvidedPassword);
     }

@@ -10,6 +10,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.patienthub.model.HospitalAdmin;
+
 import com.patienthub.service.HospitalAdminService;
 import com.patienthub.webexceptions.InvalidInput;
 
@@ -29,6 +30,7 @@ public class HospitalAdminResource {
         if (eirCode == null) {
             throw new InvalidInput("please provide an eirCode in url param");
         }
+
         hospialAdminservice.save(hospitalAdmin, eirCode);
         return Response.status(Status.CREATED.getStatusCode()).entity(hospitalAdmin).build();
     }

@@ -123,13 +123,13 @@ public class UserDao implements Dao<User> {
 
     }
 
-    public User getUserbyEmail(String email){
+    public User getUserbyEmail(String email) {
         try {
             PreparedStatement stmt = con.prepareStatement("select * from users where email = ?");
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
             return processResultSet(rs);
-            
+
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
