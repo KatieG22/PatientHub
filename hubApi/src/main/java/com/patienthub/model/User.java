@@ -33,8 +33,6 @@ public class User {
 
     private String gender = "others";
 
-    private String role;
-
     private boolean isactive;
 
     @NotNull(message = "password is required")
