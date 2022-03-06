@@ -107,11 +107,7 @@ public class User {
     }
 
     public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
+        return this.getClass().getSimpleName();
     }
 
     public boolean isisactive() {
@@ -130,10 +126,10 @@ public class User {
         this.password = password;
     }
 
-    public boolean passwordValid(String providedPassword){
+    public boolean passwordValid(String providedPassword) {
         String hashOfProvidedPassword = Hashing.sha256()
-        .hashString(password, StandardCharsets.UTF_8)
-        .toString();
+                .hashString(password, StandardCharsets.UTF_8)
+                .toString();
         return password.equals(hashOfProvidedPassword);
     }
 
