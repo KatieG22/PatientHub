@@ -12,6 +12,8 @@ import com.patienthub.webexceptions.ObjectDoesNotExist;
 public class HospitalAdminService {
     private static Dao<HospitalAdmin> hospitalAdminDao = new HospitalAdminDao();
 
+    /** If The following pass then a hospital admin is created.  */
+   
     public void save(HospitalAdmin admin, String eirCode) {
         HospitalDao hospitalDao = new HospitalDao();
         UserDao userDao = new UserDao();

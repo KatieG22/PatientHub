@@ -15,12 +15,14 @@ import com.patienthub.utils.ProdDbConfig;
 public class HospitalDao implements Dao<Hospital> {
     private static Connection con = Database.getConnection(new ProdDbConfig());
 
+    /** Checking if there is a hospital in the database */
     @Override
     public Optional<Hospital> get(long id) {
         // TODO Auto-generated method stub
         return null;
     }
 
+    /**  Accessing hospital by eircode by connecting to the database*/
     public Hospital getByEirCode(String eirCode) {
         // https://coderanch.com/t/646858/databases/implement-DAO-update-method
         try {
@@ -39,13 +41,14 @@ public class HospitalDao implements Dao<Hospital> {
         return null;
 
     }
-
+    /**  Listing all the hospitals in the database*/
     @Override
     public List<Hospital> getAll() {
         // TODO Auto-generated method stub
         return null;
     }
 
+    /** Creating the hospital and storing the information in the database*/ 
     @Override
     public boolean save(Hospital hospital) {
         // TODO Auto-generated method stub
@@ -74,6 +77,7 @@ public class HospitalDao implements Dao<Hospital> {
 
     }
 
+    /** Updating hospital information */
     @Override
     public void update(Hospital hospital) {
         // TODO Auto-generated method stub
@@ -96,6 +100,9 @@ public class HospitalDao implements Dao<Hospital> {
         }
     }
 
+    /** Updating the admin status by inputtig eircode of hospital.  */
+   
+   
     public void updateAdminStatus(Hospital hospital) {
 
         try {
@@ -127,7 +134,7 @@ public class HospitalDao implements Dao<Hospital> {
         }
 
     }
-
+    /** Making a database row into a hospital object */
     protected Hospital processResultSet(ResultSet rs) {
         Hospital hospital = new Hospital();
         try {

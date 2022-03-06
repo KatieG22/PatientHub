@@ -7,6 +7,7 @@ import com.patienthub.model.Patient;
 
 public class PatientDao implements Dao<Patient> {
 
+    /** Checking to see if Patient is in the list  */
     @Override
     public Optional<Patient> get(long id) {
         // TODO Auto-generated method stub

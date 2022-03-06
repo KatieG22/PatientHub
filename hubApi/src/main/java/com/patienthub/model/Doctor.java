@@ -2,6 +2,9 @@ package com.patienthub.model;
 
 public class Doctor extends User {
 
+    /** Instansiating a doctor object that is set in UserDAO
+     * A doctor is a  type of user defined in User.java
+      */
     private String staffID;
     private Hospital currentHospital;
     private String spectiality;

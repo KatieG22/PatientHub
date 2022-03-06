@@ -6,6 +6,7 @@ import java.util.Optional;
 
 public interface Dao<T> {
 
+    /** Can be empty or populated */
     Optional<T> get(long id);
 
     List<T> getAll();

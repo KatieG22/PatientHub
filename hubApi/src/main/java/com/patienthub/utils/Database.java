@@ -17,6 +17,7 @@ public class Database {
     private static String dbPassword;
     private static String dbName;
 
+    /** Configuring the database */
     private Database(DbConfig dbConfig) {
         String driver = null;
         dbUsername = dbConfig.getConfig("dbUsername");

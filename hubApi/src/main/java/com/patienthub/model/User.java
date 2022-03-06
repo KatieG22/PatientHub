@@ -5,6 +5,7 @@ import javax.validation.constraints.Size;
 
 import com.patienthub.constraintAnnotations.Email;
 
+/** Instantiating & defining the type of user  */
 public class User {
 
     @NotNull(message = "first name is required")
@@ -41,6 +42,9 @@ public class User {
 
     }
 
+    /** Creating the User object that will be set in the UserDAO
+     * A number of fields are required to proceed 
+     */
     public User(@NotNull(message = "first name is required") String firstName,
             @NotNull(message = "last name is required") String lastName,
             @NotNull(message = "contact number is required") String contactNum,

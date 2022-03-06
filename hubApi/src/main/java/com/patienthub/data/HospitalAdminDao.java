@@ -14,8 +14,10 @@ import com.patienthub.utils.ProdDbConfig;
 
 public class HospitalAdminDao implements Dao<HospitalAdmin> {
 
+    /**  Establishing a connection to the database */
     private static Connection con = Database.getConnection(new ProdDbConfig());
 
+    /** Checking to see if there is admin in the Hospital Admin database */
     @Override
     public Optional<HospitalAdmin> get(long id) {
         // TODO Auto-generated method stub
@@ -28,6 +30,10 @@ public class HospitalAdminDao implements Dao<HospitalAdmin> {
         return null;
     }
 
+    /** Creating Hospital admin staff by getting hospital eircode
+    and the admins PPSN. In order to get the eircode we must
+    get the hospital first
+    */ 
     @Override
     public boolean save(HospitalAdmin admin) {
         // TODO Auto-generated method stub
@@ -49,6 +55,7 @@ public class HospitalAdminDao implements Dao<HospitalAdmin> {
         return false;
     }
 
+    /**  Updating hospital admin staff's details */
     @Override
     public void update(HospitalAdmin t) {
         // TODO Auto-generated method stub
@@ -61,6 +68,8 @@ public class HospitalAdminDao implements Dao<HospitalAdmin> {
 
     }
 
+    /**  Viewing hospital admin staff by searching hospial eircode by
+        joining hadmin database & users database to create a view  */
     public HospitalAdmin getByEircode(String eirCode) {
         try {
             PreparedStatement stmt = con.prepareStatement("select * from getAdmin where eirCode = ?");
@@ -75,7 +84,8 @@ public class HospitalAdminDao implements Dao<HospitalAdmin> {
         }
         return null;
     }
-
+    /**  setting hosptial admin  staff information in the 
+     * HospitalAdmin database */
     protected HospitalAdmin processResultSet(ResultSet rs) {
         HospitalAdmin hospitalAdmin = new HospitalAdmin();
         try {

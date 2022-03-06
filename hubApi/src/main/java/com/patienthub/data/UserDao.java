@@ -16,12 +16,14 @@ import com.patienthub.utils.ProdDbConfig;
 public class UserDao implements Dao<User> {
     private static Connection con = Database.getConnection(new ProdDbConfig());
 
+    /**Checking to see if there are users in the database */
     @Override
     public Optional<User> get(long id) {
         // TODO Auto-generated method stub
         return null;
     }
 
+    /** Finding a user by PPSN by connecting to the users database  */
     public User getByPpsNumber(String pps) {
 
         try {
@@ -43,6 +45,9 @@ public class UserDao implements Dao<User> {
         return null;
     }
 
+    /** Setting and storing the user info in the users database.
+     * Setting user's self-chosen hashed password so it does not store as text .
+     */
     @Override
     public boolean save(User user) {
         // TODO Auto-generated method stub
@@ -99,6 +104,7 @@ public class UserDao implements Dao<User> {
 
     }
 
+    /** Storing the user row in the database as an object */
     protected User processResultSet(ResultSet rs) {
         User user = new User();
         try {

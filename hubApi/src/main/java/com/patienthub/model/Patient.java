@@ -13,6 +13,8 @@ public class Patient extends User {
         super();
     }
 
+    /** Instansiating a patient object that is set in UserDAO.
+     * By importing constraints some of the fields for a patient are required */
     public Patient(@NotNull(message = "first name is required") String firstName,
             @NotNull(message = "last name is required") String lastName,
             @NotNull(message = "contact number is required") String contactNum,

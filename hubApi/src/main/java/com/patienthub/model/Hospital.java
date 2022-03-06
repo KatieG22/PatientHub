@@ -43,6 +43,7 @@ public class Hospital {
 
     }
 
+    /** Instansiating the Hospital object that is set in HospitalDAO */
     public Hospital(String name, String contactNum, String contactEmail, String eirCode, String addressLine,
             String county, String city, boolean isHq, boolean hasAdmin, boolean isVerified) {
         this.name = name;

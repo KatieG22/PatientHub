@@ -6,6 +6,10 @@ public class HospitalAdmin extends User {
 
     private Hospital hospital;
 
+    /** Creating the hospitalAdmin that is set in HospitalDAO 
+     * HospitalAdmin is a type of User
+     * Hospital must exist in order to create a hosptial admin
+     */
     public HospitalAdmin(@NotNull(message = "first name is required") String firstName,
             @NotNull(message = "last name is required") String lastName,
             @NotNull(message = "contact number is required") String contactNum,

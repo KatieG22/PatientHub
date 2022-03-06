@@ -15,6 +15,7 @@ import com.patienthub.webexceptions.InvalidInput;
 
 import javax.ws.rs.core.Response.Status;
 
+/** Using JSON to create and store hospital admin */
 @Path("v1/hospitaladmin")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -22,6 +23,7 @@ public class HospitalAdminResource {
 
     public static HospitalAdminService hospialAdminservice = new HospitalAdminService();
 
+    /**  Creating HTTTP Methods */
     @POST
     @Path("/register")
     public Response create(@QueryParam("eirCode") String eirCode, @Valid HospitalAdmin hospitalAdmin) {
