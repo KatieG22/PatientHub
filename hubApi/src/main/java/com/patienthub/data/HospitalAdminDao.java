@@ -83,7 +83,6 @@ public class HospitalAdminDao implements Dao<HospitalAdmin> {
             hospitalAdmin.setFirstName(rs.getString("firstName"));
             hospitalAdmin.setLastName(rs.getString("lastName"));
             hospitalAdmin.setPps(rs.getString("pps"));
-            hospitalAdmin.setRole(rs.getString("role"));
             hospitalAdmin.setEmail(rs.getString("email"));
             hospitalAdmin.setGender(rs.getString("gender"));
             hospitalAdmin.setisactive(rs.getBoolean("isactive"));
