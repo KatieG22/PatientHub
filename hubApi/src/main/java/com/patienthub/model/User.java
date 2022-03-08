@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.google.common.hash.Hashing;
-import com.patienthub.constraintAnnotations.Email;
+import com.patienthub.annotation.Email;
 
 public class User {
 

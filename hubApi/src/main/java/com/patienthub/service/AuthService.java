@@ -9,12 +9,14 @@ import javax.xml.bind.DatatypeConverter;
 
 import com.patienthub.data.UserDao;
 import com.patienthub.model.Credentials;
+import com.patienthub.model.WebToken;
 import com.patienthub.model.User;
 import com.patienthub.webexceptions.PasswordMismatch;
 import com.patienthub.webexceptions.UserDoesNotExist;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -39,7 +41,7 @@ public class AuthService {
         accessTokenExpireDays = numberOfDays;
     }
 
-    public String authenticate(Credentials credentials) {
+    public WebToken authenticate(Credentials credentials) {
         String email = credentials.getEmail();
         String password = credentials.getPassword();
 
@@ -57,7 +59,7 @@ public class AuthService {
         return issueToken(user);
     }
 
-    private String issueToken(User user) {
+    private WebToken issueToken(User user) {
 
         long nowMillis = System.currentTimeMillis();
         // 3 months
@@ -74,17 +76,36 @@ public class AuthService {
         String fullName = user.getFirstName() + " " + user.getLastName();
 
         Claims claims = Jwts.claims();
-        claims.put("role", user.getClass().getSimpleName());
+        claims.put("role", user.getRole());
+        claims.put("iat", now);
+        claims.put("sub", fullName);
+        claims.put("exp", expiration);
+        claims.put("jti", user.getPps());
 
         String jws = Jwts.builder()
-                .setIssuedAt(now)
-                .setSubject(fullName)
-                .setId(user.getPps())
                 .setClaims(claims)
-                .setExpiration(expiration)
                 .signWith(key)
                 .compact();
-        return jws;
+
+        System.out.println(user.getPps());
+        System.out.println(jws);
+        WebToken token = new WebToken(jws);
+        return token;
     }
 
+    public boolean validToken(String token) {
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(SECRET_KEY)
+                    .build()
+                    .parseClaimsJws(token);
+
+            return true;
+        } catch (JwtException ex) { // (5)
+
+            // we *cannot* use the JWT as intended by its creator
+            return false;
+        }
+
+    }
 }

@@ -3,7 +3,7 @@ package com.patienthub.model;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.patienthub.constraintAnnotations.Email;
+import com.patienthub.annotation.Email;
 
 public class Credentials {
 
@@ -14,6 +14,10 @@ public class Credentials {
 
     @NotNull(message = "password is required")
     private String password;
+
+    public Credentials() {
+
+    }
 
     public Credentials(@NotNull(message = "email is required") @Size(max = 25) String email,
             @NotNull(message = "password is required") String password) {

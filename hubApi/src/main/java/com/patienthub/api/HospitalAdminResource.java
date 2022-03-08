@@ -10,7 +10,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.patienthub.model.HospitalAdmin;
-
 import com.patienthub.service.HospitalAdminService;
 import com.patienthub.webexceptions.InvalidInput;
 
@@ -34,5 +33,12 @@ public class HospitalAdminResource {
         hospialAdminservice.save(hospitalAdmin, eirCode);
         return Response.status(Status.CREATED.getStatusCode()).entity(hospitalAdmin).build();
     }
+
+    // @POST
+    // @Secured
+    // @Path("/register-doctor")
+    // public Response registerDoctor(@Valid Doctor doctor) {
+
+    // }
 
 }

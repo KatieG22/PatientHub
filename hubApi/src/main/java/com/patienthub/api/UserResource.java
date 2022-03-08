@@ -3,7 +3,6 @@ package com.patienthub.api;
 
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -22,7 +21,7 @@ import com.patienthub.service.UserService;
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserResource {
 
-    private UserService userService= new UserService();
+    private UserService userService = new UserService();
 
     /**
      * Method handling HTTP GET requests. The returned object will be sent
