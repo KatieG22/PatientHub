@@ -72,7 +72,7 @@ public class UserDao implements Dao<User> {
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            System.out.println(e.getMessage() + "<---- cause");
+
             return false;
 
         }

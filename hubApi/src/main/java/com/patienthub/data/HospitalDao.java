@@ -122,7 +122,7 @@ public class HospitalDao implements Dao<Hospital> {
             stmt.executeUpdate();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
-            System.out.println("---- deleting");
+
             e.printStackTrace();
         }
 

@@ -43,7 +43,6 @@ public class HospitalAdminDao implements Dao<HospitalAdmin> {
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            System.out.println(e.getMessage() + "<---- caushhhhhe");
 
         }
         return false;
