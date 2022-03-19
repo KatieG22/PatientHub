@@ -30,6 +30,10 @@ public class Patient extends User {
         return patientID;
     }
 
+    public void setPatientID(int patientID) {
+        this.patientID = patientID;
+    }
+
     public Hospital getHospital() {
         return hospital;
     }

@@ -34,11 +34,9 @@ public class HospitalAdminResource {
         return Response.status(Status.CREATED.getStatusCode()).entity(hospitalAdmin).build();
     }
 
-    // @POST
-    // @Secured
-    // @Path("/register-doctor")
-    // public Response registerDoctor(@Valid Doctor doctor) {
-
-    // }
+    public Response createDoctor() {
+        // randomly generate password. user service to create doctor
+        return Response.status(Status.CREATED.getStatusCode()).entity("hospitalAdmin").build();
+    }
 
 }
