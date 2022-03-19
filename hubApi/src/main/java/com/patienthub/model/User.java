@@ -39,6 +39,8 @@ public class User implements Principal {
     @NotNull(message = "password is required")
     private String password;
 
+    private String role;
+
     public User() {
 
     }
@@ -114,8 +116,12 @@ public class User implements Principal {
 
     }
 
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public String getRole() {
-        return this.getClass().getSimpleName();
+        return this.role;
     }
 
     public boolean isisactive() {

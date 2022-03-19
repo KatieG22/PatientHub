@@ -21,7 +21,7 @@ public class HospitalAdminResourceTest extends BaseSetup {
     public void testHospitalAdminCanSignUp() {
         Hospital hospital = hospitalAdmin.getHospital();
         hospitalDao.save(hospital);
-
+        System.out.print(hospitalAdmin.getRole());
         String eirCode = hospital.getEirCode();
         WebTarget hospitalTarget = target.path("v1/hospitaladmin/register").queryParam("eirCode", eirCode);
         Response response = hospitalTarget.request(MediaType.APPLICATION_JSON)
