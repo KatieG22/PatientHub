@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,8 +60,20 @@ public class DoctorDao implements Dao<Doctor> {
 
     @Override
     public List<Doctor> getAll() {
-        // TODO Auto-generated method stub
-        return null;
+        ArrayList<Doctor> doctors = new ArrayList<Doctor>();
+
+        try {
+            PreparedStatement stmt = con.prepareStatement("select * from getDoctor");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Doctor doctor = processResultSet(rs);
+                doctors.add(doctor);
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return doctors;
     }
 
     @Override
@@ -100,10 +113,26 @@ public class DoctorDao implements Dao<Doctor> {
 
     }
 
+    public ArrayList<Doctor> getAllDoctorsInHospital(Hospital hospital) {
+        ArrayList<Doctor> doctors = new ArrayList<Doctor>();
+        try {
+            PreparedStatement stmt = con.prepareStatement("select * from getDoctor where currentHospital = ? ");
+            stmt.setString(1, hospital.getEirCode());
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Doctor doctor = processResultSet(rs);
+                doctors.add(doctor);
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return doctors;
+    }
+
     protected Doctor processResultSet(ResultSet rs) {
         Doctor doctor = new Doctor();
         Hospital currentHospital = new Hospital();
-
         try {
 
             doctor.setFirstName(rs.getString("firstName"));

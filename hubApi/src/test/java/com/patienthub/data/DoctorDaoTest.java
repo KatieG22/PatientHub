@@ -1,7 +1,10 @@
 package com.patienthub.data;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import com.github.javafaker.Faker;
@@ -22,14 +25,41 @@ public class DoctorDaoTest {
     private static HospitalDao hospitalDao;
     private static Hospital currentHospital;
 
+    public Hospital generateHospital() {
+        Hospital hospital = new Hospital(faker.address().cityName(), faker.phoneNumber().cellPhone(),
+                faker.internet().emailAddress(), faker.address().zipCode(), faker.address().streetAddress(),
+                "dublin", "dublin",
+                true, false, true);
+        return hospital;
+    }
+
+    public Doctor generateDoctor(Hospital hosp) {
+        Doctor doctor = new Doctor();
+        doctorDao = new DoctorDao();
+        String userRole = doctor.getClass().getSimpleName();
+        doctor.setFirstName(faker.name().firstName());
+        doctor.setLastName(faker.name().lastName());
+        doctor.setContactNum(faker.phoneNumber().cellPhone());
+        doctor.setEmail(faker.internet().emailAddress());
+        doctor.setPps(faker.bothify("??#?##??##"));
+        doctor.setGender(Gender.MALE.name());
+        doctor.setRole(userRole);
+        doctor.setPassword(faker.bothify("??#??#"));
+        doctor.setSpecialization("surgery");
+        doctor.setCurrentHospital(hosp);
+
+        return doctor;
+
+    }
+
     @Before
     public void setUp() throws Exception {
         userDao = new UserDao();
-        currentHospital = new Hospital(faker.address().cityName(), faker.phoneNumber().cellPhone(),
-                faker.internet().emailAddress(), faker.address().zipCode(), faker.address().streetAddress(),
-                faker.address().country(), faker.address().state(),
-                true, false, true);
-
+        currentHospital = new Hospital(faker.address().cityName(),
+                faker.phoneNumber().cellPhone(),
+                faker.internet().emailAddress(), faker.address().zipCode(),
+                "church street", "ireland", "dublin", true, false, true);
+        // currentHospital = generateHospital();
         hospitalDao = new HospitalDao();
         hospitalDao.save(currentHospital);
 
@@ -49,6 +79,15 @@ public class DoctorDaoTest {
 
     }
 
+    @After
+    public void tearDown() throws Exception {
+        List<Doctor> doctors = doctorDao.getAll();
+        for (Doctor doctor : doctors) {
+            userDao.delete(doctor);
+        }
+        hospitalDao.delete(currentHospital);
+    }
+
     @Test
     public void testSaveMethodCreatesDoctorInDB() {
         doctorDao = new DoctorDao();
@@ -58,10 +97,23 @@ public class DoctorDaoTest {
 
     }
 
-    @After
-    public void tearDown() throws Exception {
-        userDao.delete(doc);
-        hospitalDao.delete(currentHospital);
+    @Test
+    public void testAllDoctorsForCurrentHospitalIsFetched() {
+        int doctorCount = 0;
+        while (doctorCount != 3) {
+            Doctor doctor = generateDoctor(currentHospital);
+            System.out.println("Eir code stuff");
+            System.out.println(doctor.getCurrentHospital().getEirCode());
+            userDao.save(doctor);
+            doctorDao.save(doctor);
+            doctorCount++;
+        }
+        doctorDao = new DoctorDao();
+        ArrayList<Doctor> doctors = doctorDao.getAllDoctorsInHospital(currentHospital);
+        int numberOFDoctors = doctors.size();
+        System.out.println("how many docs ------>" + numberOFDoctors);
+        assertEquals(3, numberOFDoctors);
+
     }
 
 }
