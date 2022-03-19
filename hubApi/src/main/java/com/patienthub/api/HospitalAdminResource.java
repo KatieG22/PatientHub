@@ -29,14 +29,8 @@ public class HospitalAdminResource {
         if (eirCode == null) {
             throw new InvalidInput("please provide an eirCode in url param");
         }
-
         hospialAdminservice.save(hospitalAdmin, eirCode);
         return Response.status(Status.CREATED.getStatusCode()).entity(hospitalAdmin).build();
-    }
-
-    public Response createDoctor() {
-        // randomly generate password. user service to create doctor
-        return Response.status(Status.CREATED.getStatusCode()).entity("hospitalAdmin").build();
     }
 
 }

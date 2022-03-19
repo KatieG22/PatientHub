@@ -18,9 +18,43 @@ public class DoctorDao implements Dao<Doctor> {
     private static Connection con = Database.getConnection(new ProdDbConfig());
 
     @Override
-    public Optional<Doctor> get(long id) {
+    public Optional<Doctor> get(long staffID) {
         // TODO Auto-generated method stub
+        try {
+            PreparedStatement stmt = con.prepareStatement("select * from getDoctor where staffID = ?");
+            stmt.setLong(1, staffID);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next() && rs.getRow() != 0) {
+                Doctor doctor = processResultSet(rs);
+                Optional<Doctor> opt = Optional.ofNullable(doctor);
+                return opt;
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
         return null;
+    }
+
+    public Optional<Doctor> getByPps(String ppsNumber) {
+        Optional<Doctor> opt;
+        try {
+            PreparedStatement stmt = con.prepareStatement("select * from getDoctor where pps = ?");
+            stmt.setString(1, ppsNumber);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            Doctor doctor = processResultSet(rs);
+            opt = Optional.ofNullable(doctor);
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            opt = Optional.ofNullable(null);
+
+        }
+
+        return opt;
     }
 
     @Override
@@ -34,10 +68,12 @@ public class DoctorDao implements Dao<Doctor> {
         Hospital currentHospital = doc.getCurrentHospital();
         try {
             PreparedStatement stmt = con.prepareStatement(
-                    "insert into doctor (pps, currentHospital)" +
-                            "Values(?, ?)");
+                    "insert into doctor (pps, currentHospital, specialization)" +
+                            "Values(?, ?, ?)");
+
             stmt.setString(1, doc.getPps());
             stmt.setString(2, currentHospital.getEirCode());
+            stmt.setString(3, doc.getSpecialization());
             stmt.executeUpdate();
             return true;
 
@@ -58,7 +94,8 @@ public class DoctorDao implements Dao<Doctor> {
     }
 
     @Override
-    public void delete(Doctor t) {
+    public void delete(Doctor doc) {
+
         // TODO Auto-generated method stub
 
     }
@@ -66,7 +103,9 @@ public class DoctorDao implements Dao<Doctor> {
     protected Doctor processResultSet(ResultSet rs) {
         Doctor doctor = new Doctor();
         Hospital currentHospital = new Hospital();
+
         try {
+
             doctor.setFirstName(rs.getString("firstName"));
             doctor.setLastName(rs.getString("lastName"));
             doctor.setContactNum(rs.getString("contactNo"));
@@ -75,8 +114,8 @@ public class DoctorDao implements Dao<Doctor> {
             doctor.setGender(rs.getString("gender"));
             doctor.setisactive(rs.getBoolean("isactive"));
             doctor.setPassword(rs.getString("password"));
-            doctor.setStaffID(rs.getInt("staffID"));
-            doctor.setSpectiality(rs.getString("spectiality"));
+            doctor.setStaffID(rs.getLong("staffID"));
+            doctor.setSpecialization(rs.getString("specialization"));
             currentHospital.setEirCode(rs.getString("currentHospital"));
             return doctor;
 

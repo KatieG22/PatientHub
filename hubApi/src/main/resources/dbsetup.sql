@@ -17,5 +17,8 @@ isVerified BOOLEAN default false,
 primary key(eirCode)
 );
 
+ALTER TABLE hospital MODIFY column eirCode VARCHAR (20);
+ALTER TABLE hospital MODIFY column contactEmail VARCHAR(200);
+
 
 
