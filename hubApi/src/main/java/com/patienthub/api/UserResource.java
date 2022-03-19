@@ -44,4 +44,5 @@ public class UserResource {
         return Response.status(Status.OK.getStatusCode()).entity(authUser).build();
 
     }
+
 }
