@@ -4,16 +4,16 @@ import java.util.ArrayList;
 
 public class Doctor extends User {
 
-    private String staffID;
+    private int staffID;
     private Hospital currentHospital;
     private String spectiality;
     private ArrayList<Patient> patients;
 
-    public String getStaffID() {
+    public int getStaffID() {
         return staffID;
     }
 
-    public void setStaffID(String staffID) {
+    public void setStaffID(int staffID) {
         this.staffID = staffID;
     }
 
