@@ -24,3 +24,12 @@ CONSTRAINT hospitalAdmin FOREIGN KEY (pps) REFERENCES users(pps)  ON DELETE CASC
 CONSTRAINT adminHospital FOREIGN KEY (hospital) REFERENCES hospital(eirCode) ON DELETE CASCADE  
 )
 
+drop table if exists doctor;
+create table doctor(
+    pps varchar(15) not null,
+    doctorID int primary key AUTO_INCREMENT,
+    currentHospital VARCHAR(10) NOT NULL,
+    CONSTRAINT hospital FOREIGN KEY (currentHospital) REFERENCES hospital(eirCode) ON DELETE CASCADE,
+    CONSTRAINT hospitalDoctor FOREIGN KEY (pps) REFERENCES users(pps) ON DELETE CASCADE
+
+)
