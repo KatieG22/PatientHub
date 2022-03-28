@@ -5,10 +5,12 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Application;
 
+import com.github.javafaker.Faker;
 import com.patienthub.config.TestAppConfig;
 import com.patienthub.data.HospitalAdminDao;
 import com.patienthub.data.HospitalDao;
 import com.patienthub.data.UserDao;
+import com.patienthub.model.Doctor;
 import com.patienthub.model.Gender;
 import com.patienthub.model.Hospital;
 import com.patienthub.model.HospitalAdmin;
@@ -63,6 +65,25 @@ public class BaseSetup extends JerseyTest {
         hospitalService.delete(hospital);
         userDao.delete(hospitalAdmin);
         server.shutdownNow();
+    }
+
+    public Doctor generateDoctor(Hospital hosp) {
+        Faker faker = new Faker();
+        Doctor doctor = new Doctor();
+        String userRole = doctor.getClass().getSimpleName();
+        doctor.setFirstName(faker.name().firstName());
+        doctor.setLastName(faker.name().lastName());
+        doctor.setContactNum(faker.phoneNumber().cellPhone());
+        doctor.setEmail(faker.internet().emailAddress());
+        doctor.setPps(faker.bothify("??#?##??##"));
+        doctor.setGender(Gender.MALE.name());
+        doctor.setRole(userRole);
+        doctor.setPassword(faker.bothify("??#??#"));
+        doctor.setSpecialization("surgery");
+        doctor.setCurrentHospital(hosp);
+
+        return doctor;
+
     }
 
 }

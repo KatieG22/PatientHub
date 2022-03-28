@@ -19,6 +19,6 @@ primary key(eirCode)
 
 ALTER TABLE hospital MODIFY column eirCode VARCHAR (20);
 ALTER TABLE hospital MODIFY column contactEmail VARCHAR(200);
-
+ALTER TABLE hospital MODIFY column addressLine VARCHAR(200);
 
 
