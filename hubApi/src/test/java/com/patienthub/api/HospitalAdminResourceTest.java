@@ -83,6 +83,10 @@ public class HospitalAdminResourceTest extends BaseSetup {
         assertEquals(Status.FORBIDDEN.getStatusCode(), response.getStatus());
     }
 
+    /**
+     * Test Ensures that calling doctors list endpoint
+     * returns a list of doctors belonging to admins hospital
+     */
     @Test
     public void testAdminGetsListOfDoctors() {
         DoctorDao doctorDao = new DoctorDao();
@@ -100,7 +104,6 @@ public class HospitalAdminResourceTest extends BaseSetup {
         String email = hospitalAdmin.getEmail();
         String password = hospitalAdmin.getPassword();
         WebToken token = authService.authenticate(new Credentials(email, password));
-        System.out.println("admin token!!!" + token.getToken());
         WebTarget hospitalAdminTarget = target.path("v1/hospitaladmin/doctorsList");
         Response response = hospitalAdminTarget.request(MediaType.APPLICATION_JSON)
                 .header(HttpHeaders.AUTHORIZATION,
