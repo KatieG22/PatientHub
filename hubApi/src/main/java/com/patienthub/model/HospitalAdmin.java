@@ -27,4 +27,31 @@ public class HospitalAdmin extends User {
         this.hospital = hospital;
     }
 
+    /**
+     * 
+     * @param user
+     * @return password
+     * 
+     *         auto-generates password consisting of the first 7 characters from
+     *         PPSN, the first letter of their first name in capital and the first
+     *         letter of their surname in lowercase​
+     * 
+     */
+
+    public String generatePasswordFor(User user) {
+        // get date
+        String firstName = user.getFirstName().toLowerCase();
+        String lastName = user.getLastName().toUpperCase();
+        StringBuilder str = new StringBuilder();
+        for (int i = 0; i < 7; i++) {
+            char character = user.getPps().charAt(i);
+            str.append(character);
+
+        }
+        str.append(lastName.charAt(0));
+        str.append(firstName.charAt(0));
+        return str.toString();
+
+    }
+
 }

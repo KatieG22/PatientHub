@@ -1,10 +1,12 @@
 package com.patienthub.config;
 
 import com.patienthub.binding.AppBinder;
+import com.patienthub.filters.AuthFilter;
 import com.patienthub.filters.CORSFilter;
 
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
+import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
 public class AppConfig extends ResourceConfig {
 
@@ -19,6 +21,8 @@ public class AppConfig extends ResourceConfig {
         // register(ValidationConfigurationContextResolver.class);
         register(ConstraintExceptionMapper.class);
         register(new CORSFilter());
+        register(new AuthFilter());
+        register(RolesAllowedDynamicFeature.class);
         property(ServerProperties.BV_SEND_ERROR_IN_RESPONSE, true);
         property(ServerProperties.BV_DISABLE_VALIDATE_ON_EXECUTABLE_OVERRIDE_CHECK, true);
 

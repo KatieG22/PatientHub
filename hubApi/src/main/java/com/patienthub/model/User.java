@@ -1,6 +1,7 @@
 package com.patienthub.model;
 
 import java.nio.charset.StandardCharsets;
+import java.security.Principal;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -8,7 +9,7 @@ import javax.validation.constraints.Size;
 import com.google.common.hash.Hashing;
 import com.patienthub.annotation.Email;
 
-public class User {
+public class User implements Principal {
 
     @NotNull(message = "first name is required")
     @Size(max = 15)
@@ -37,6 +38,8 @@ public class User {
 
     @NotNull(message = "password is required")
     private String password;
+
+    private String role;
 
     public User() {
 
@@ -113,8 +116,12 @@ public class User {
 
     }
 
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public String getRole() {
-        return this.getClass().getSimpleName();
+        return this.role;
     }
 
     public boolean isisactive() {
@@ -138,6 +145,21 @@ public class User {
                 .hashString(providedPassword, StandardCharsets.UTF_8)
                 .toString();
         return password.equals(hashOfProvidedPassword);
+    }
+
+    @Override
+    public String getName() {
+        // TODO Auto-generated method stub
+        return this.firstName;
+    }
+
+    public String hashPassword() {
+        String password = getPassword();
+        String hashedPasssword = Hashing.sha256()
+                .hashString(password, StandardCharsets.UTF_8)
+                .toString();
+
+        return hashedPasssword;
     }
 
 }

@@ -1,5 +1,6 @@
 package com.patienthub.service;
 
+import java.io.Console;
 import java.security.Key;
 import java.util.Calendar;
 import java.util.Date;
@@ -44,15 +45,16 @@ public class AuthService {
     public WebToken authenticate(Credentials credentials) {
         String email = credentials.getEmail();
         String password = credentials.getPassword();
-
         UserDao userDao = new UserDao();
         User user = userDao.getUserbyEmail(email);
 
         if (user == null) {
+
             throw new UserDoesNotExist();
         }
 
         if (user.passwordValid(password) == false) {
+
             throw new PasswordMismatch();
         }
 
@@ -87,8 +89,8 @@ public class AuthService {
                 .signWith(key)
                 .compact();
 
-        System.out.println(user.getPps());
-        System.out.println(jws);
+        // System.out.println(user.getPps());
+        // System.out.println(jws);
         WebToken token = new WebToken(jws);
         return token;
     }
@@ -106,6 +108,24 @@ public class AuthService {
             // we *cannot* use the JWT as intended by its creator
             return false;
         }
+
+    }
+
+    public User getOwner(String token) {
+        if (!validToken(token)) {
+            return null;
+        }
+
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(SECRET_KEY)
+                .build()
+                .parseClaimsJws(token).getBody();
+
+        String pps = claims.getId();
+        UserDao userDao = new UserDao();
+
+        User user = userDao.getByPpsNumber(pps);
+        return user;
 
     }
 }

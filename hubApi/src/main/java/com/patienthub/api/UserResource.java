@@ -1,16 +1,21 @@
 
 package com.patienthub.api;
 
-import javax.validation.Valid;
+import java.security.Principal;
+
 import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
+import javax.ws.rs.GET;
+
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.Response.Status;
 
-import com.patienthub.model.Credentials;
+import com.patienthub.annotation.Secured;
+import com.patienthub.model.User;
 import com.patienthub.service.UserService;
 
 /**
@@ -29,9 +34,14 @@ public class UserResource {
      *
      * @return String that will be returned as a text/plain response.
      */
-    @POST
-    public Response authenticate(@Valid Credentials credential) {
-        String token = userService.authenticate(credential);
-        return Response.status(Status.OK.getStatusCode()).entity(token).build();
+    @GET
+    @Secured
+    @Path("/detail")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response details(@Context SecurityContext securityContext) {
+        Principal authUser = securityContext.getUserPrincipal();
+        return Response.status(Status.OK.getStatusCode()).entity(authUser).build();
+
     }
+
 }

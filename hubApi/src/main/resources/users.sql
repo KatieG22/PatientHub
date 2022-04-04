@@ -14,6 +14,7 @@ ALTER TABLE users ADD column password VARCHAR(256) NOT NULL;
 ALTER TABLE users MODIFY column gender enum ('male','female','not specified') DEFAULT "not specified";
 ALTER TABLE users MODIFY column role varchar(15);
 ALTER TABLE users MODIFY column gender varchar(15);
+ALTER TABLE users MODIFY column email VARCHAR (100);
 
 drop table if exists hAdmin;
 create table hAdmin(
@@ -22,5 +23,15 @@ pps varchar(15) not null,
 hospital VARCHAR(10) NOT NULL,
 CONSTRAINT hospitalAdmin FOREIGN KEY (pps) REFERENCES users(pps)  ON DELETE CASCADE,
 CONSTRAINT adminHospital FOREIGN KEY (hospital) REFERENCES hospital(eirCode) ON DELETE CASCADE  
-)
+);
 
+
+drop table if exists doctor;
+create table doctor(
+    pps varchar(15) not null,
+    staffID int primary key AUTO_INCREMENT,
+    currentHospital VARCHAR(10) NOT NULL,
+    CONSTRAINT hospital FOREIGN KEY (currentHospital) REFERENCES hospital(eirCode) ON DELETE CASCADE,
+    CONSTRAINT hospitalDoctor FOREIGN KEY (pps) REFERENCES users(pps) ON DELETE CASCADE
+);
+ALTER TABLE doctor ADD column specialization VARCHAR(200);

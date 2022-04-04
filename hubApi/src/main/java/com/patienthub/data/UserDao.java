@@ -19,6 +19,7 @@ public class UserDao implements Dao<User> {
     @Override
     public Optional<User> get(long id) {
         // TODO Auto-generated method stub
+
         return null;
     }
 
@@ -52,6 +53,10 @@ public class UserDao implements Dao<User> {
         String hashedPasssword = Hashing.sha256()
                 .hashString(password, StandardCharsets.UTF_8)
                 .toString();
+
+        String userRole = user.getClass().getSimpleName();
+        System.out.println("saving users!!!!!");
+        System.out.println(userRole);
         try {
             PreparedStatement stmt = con.prepareStatement(
                     "insert into users (firstName, lastName, contactNo," +
@@ -63,7 +68,7 @@ public class UserDao implements Dao<User> {
             stmt.setString(4, user.getEmail());
             stmt.setString(5, user.getPps());
             stmt.setString(6, user.getGender());
-            stmt.setString(7, user.getRole());
+            stmt.setString(7, userRole);
             stmt.setString(8, hashedPasssword);
 
             stmt.executeUpdate();
@@ -72,7 +77,7 @@ public class UserDao implements Dao<User> {
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            System.out.println(e.getMessage() + "<---- cause");
+
             return false;
 
         }
@@ -112,6 +117,7 @@ public class UserDao implements Dao<User> {
                 user.setGender(rs.getString("gender"));
                 user.setisactive(rs.getBoolean("isactive"));
                 user.setPassword(rs.getString("password"));
+                user.setRole(rs.getString("role"));
                 return user;
             }
         } catch (SQLException e) {

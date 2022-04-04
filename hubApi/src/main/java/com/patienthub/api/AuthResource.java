@@ -16,15 +16,15 @@ import com.patienthub.service.AuthService;
 @Path("v1/auth")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class AuthRespource {
+public class AuthResource {
 
     private static AuthService authService = new AuthService();
 
     @POST
     @Path("/signin")
     public Response authenticate(@Valid Credentials credentials) {
+
         WebToken token = authService.authenticate(credentials);
-        System.out.println(token + "token");
         return Response.status(Status.OK.getStatusCode()).entity(token).build();
 
     }

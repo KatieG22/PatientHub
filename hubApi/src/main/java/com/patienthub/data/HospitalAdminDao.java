@@ -28,6 +28,21 @@ public class HospitalAdminDao implements Dao<HospitalAdmin> {
         return null;
     }
 
+    public Optional<HospitalAdmin> getAdminByPPS(String pps) {
+        try {
+            PreparedStatement stmt = con.prepareStatement("select * from  getAdmin where pps = ?");
+            stmt.setString(1, pps);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next() && rs.getRow() != 0) {
+                return Optional.ofNullable(processResultSet(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Optional.ofNullable(null);
+
+    }
+
     @Override
     public boolean save(HospitalAdmin admin) {
         // TODO Auto-generated method stub
@@ -43,7 +58,6 @@ public class HospitalAdminDao implements Dao<HospitalAdmin> {
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            System.out.println(e.getMessage() + "<---- caushhhhhe");
 
         }
         return false;
@@ -86,7 +100,7 @@ public class HospitalAdminDao implements Dao<HospitalAdmin> {
             hospitalAdmin.setEmail(rs.getString("email"));
             hospitalAdmin.setGender(rs.getString("gender"));
             hospitalAdmin.setisactive(rs.getBoolean("isactive"));
-            hospitalAdmin.setHospital(new Hospital(rs.getString("eirCode")));
+            hospitalAdmin.setHospital(new Hospital(rs.getString("hospital")));
 
         } catch (SQLException e) {
             // TODO: handle exception
