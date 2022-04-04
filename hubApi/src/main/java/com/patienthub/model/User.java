@@ -153,4 +153,13 @@ public class User implements Principal {
         return this.firstName;
     }
 
+    public String hashPassword() {
+        String password = getPassword();
+        String hashedPasssword = Hashing.sha256()
+                .hashString(password, StandardCharsets.UTF_8)
+                .toString();
+
+        return hashedPasssword;
+    }
+
 }

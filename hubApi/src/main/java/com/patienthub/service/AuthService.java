@@ -1,5 +1,6 @@
 package com.patienthub.service;
 
+import java.io.Console;
 import java.security.Key;
 import java.util.Calendar;
 import java.util.Date;
@@ -44,15 +45,16 @@ public class AuthService {
     public WebToken authenticate(Credentials credentials) {
         String email = credentials.getEmail();
         String password = credentials.getPassword();
-
         UserDao userDao = new UserDao();
         User user = userDao.getUserbyEmail(email);
 
         if (user == null) {
+
             throw new UserDoesNotExist();
         }
 
         if (user.passwordValid(password) == false) {
+
             throw new PasswordMismatch();
         }
 

@@ -40,7 +40,6 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response details(@Context SecurityContext securityContext) {
         Principal authUser = securityContext.getUserPrincipal();
-
         return Response.status(Status.OK.getStatusCode()).entity(authUser).build();
 
     }

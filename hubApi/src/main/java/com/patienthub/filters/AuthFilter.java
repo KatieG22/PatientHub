@@ -89,8 +89,11 @@ public class AuthFilter implements ContainerRequestFilter {
 
             @Override
             public boolean isUserInRole(String role) {
+                System.out.println("heyre!!!!!! meee!!! please!!!!");
+                System.out.println(role);
+                System.out.println(user.getRole());
 
-                return true;
+                return role.equals(user.getRole());
             }
 
             @Override

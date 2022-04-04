@@ -23,8 +23,8 @@ public class AuthResource {
     @POST
     @Path("/signin")
     public Response authenticate(@Valid Credentials credentials) {
-        WebToken token = authService.authenticate(credentials);
 
+        WebToken token = authService.authenticate(credentials);
         return Response.status(Status.OK.getStatusCode()).entity(token).build();
 
     }

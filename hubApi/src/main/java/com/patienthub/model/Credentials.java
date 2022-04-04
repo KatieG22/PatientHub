@@ -5,6 +5,10 @@ import javax.validation.constraints.Size;
 
 import com.patienthub.annotation.Email;
 
+/**
+ * @author Glen
+ *         This class contains all creditentials user needs to login
+ */
 public class Credentials {
 
     @NotNull(message = "email is required")

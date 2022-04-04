@@ -4,16 +4,16 @@ import java.util.ArrayList;
 
 public class Doctor extends User {
 
-    private String staffID;
+    private long staffID;
     private Hospital currentHospital;
-    private String spectiality;
+    private String specialization;
     private ArrayList<Patient> patients;
 
-    public String getStaffID() {
+    public long getStaffID() {
         return staffID;
     }
 
-    public void setStaffID(String staffID) {
+    public void setStaffID(long staffID) {
         this.staffID = staffID;
     }
 
@@ -25,12 +25,12 @@ public class Doctor extends User {
         this.currentHospital = currentHospital;
     }
 
-    public String getSpectiality() {
-        return spectiality;
+    public String getSpecialization() {
+        return specialization;
     }
 
-    public void setSpectiality(String spectiality) {
-        this.spectiality = spectiality;
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
     }
 
     public ArrayList<Patient> getPatients() {

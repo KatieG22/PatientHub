@@ -7,6 +7,9 @@ import javax.ws.rs.core.Response.Status;
 
 import com.patienthub.errors.ErrorMessage;
 
+/**
+ * Throw exception if object does not exist in database
+ */
 public class ObjectDoesNotExist extends WebApplicationException {
 
     public ObjectDoesNotExist() {

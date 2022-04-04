@@ -55,6 +55,8 @@ public class UserDao implements Dao<User> {
                 .toString();
 
         String userRole = user.getClass().getSimpleName();
+        System.out.println("saving users!!!!!");
+        System.out.println(userRole);
         try {
             PreparedStatement stmt = con.prepareStatement(
                     "insert into users (firstName, lastName, contactNo," +
@@ -115,6 +117,7 @@ public class UserDao implements Dao<User> {
                 user.setGender(rs.getString("gender"));
                 user.setisactive(rs.getBoolean("isactive"));
                 user.setPassword(rs.getString("password"));
+                user.setRole(rs.getString("role"));
                 return user;
             }
         } catch (SQLException e) {
